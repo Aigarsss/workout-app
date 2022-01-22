@@ -1,8 +1,9 @@
 import React from 'react';
+import classes from './app.scss'
 
 const App = () => {
     return (
-        <h3>Welcome to react boilerplate</h3>
+        <h3 className={classes.test}>Welcome to react boilerplate</h3>
     )
 }
 
