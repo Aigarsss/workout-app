@@ -23,10 +23,6 @@ module.exports = {
                 loader: "source-map-loader"
             },
             {
-                test: /\.css$/,
-                loader: "css-loader"
-            },
-            {
                 test: /\.s[ca]ss$/i,
                 use: [{
                     loader: "style-loader"
