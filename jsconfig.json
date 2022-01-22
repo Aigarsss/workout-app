@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "module": "es5",
+      "paths": {
+        "@App/*": ["./src/*"]
+      }
+    }
+  }
