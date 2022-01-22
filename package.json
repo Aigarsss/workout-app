@@ -1,5 +1,5 @@
 {
-  "name": "WorkoutApp",
+  "name": "workout-app",
   "version": "1.0.0",
   "description": "App to generate random workouts",
   "main": "index.js",
