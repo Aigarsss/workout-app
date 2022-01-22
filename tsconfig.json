@@ -9,7 +9,11 @@
         "sourceMap": true,
         "target": "es5",
         "allowSyntheticDefaultImports": true,
-        "moduleResolution": "Node"
+        "moduleResolution": "Node",
+        "baseUrl": ".",
+        "paths": {
+            "@App/*": ["./src/*"]
+        }
     },
     "exclude": ["node_modules"]
 }

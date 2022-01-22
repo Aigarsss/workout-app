@@ -1,5 +1,5 @@
 const path = require("path");
-
+const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -10,6 +10,9 @@ module.exports = {
     },
     resolve: {
         extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+        alias: {
+            "@App": path.resolve(__dirname, 'src')
+        }
     },
     module: {
         rules: [
@@ -24,20 +27,31 @@ module.exports = {
             },
             {
                 test: /\.s[ca]ss$/i,
-                use: [{
-                    loader: "style-loader"
-                  }, {
-                    loader: "css-loader",
-                    options: {
-                        modules: true,
-                        importLoaders: 1,
-                        modules: {
-                            localIdentName: '[name]-[local]-[hash:base64:3]'
-                        },
+                use: [
+                    {
+                        loader: "style-loader"
+                    }, {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            importLoaders: 1,
+                            modules: {
+                                localIdentName: '[name]-[local]-[hash:base64:3]'
+                            },
+                        }
+                    }, 
+                    {
+                        loader: "sass-loader"
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [autoprefixer()]
+                            }
+                        }
                     }
-                  }, {
-                    loader: "sass-loader"
-                  }]
+                ]
             }
         ]
     },
