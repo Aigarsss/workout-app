@@ -5,9 +5,13 @@
 
 ## Linter and prettier
 
-- https://javascript.plainenglish.io/setting-eslint-and-prettier-on-a-react-typescript-project-2021-22993565edf9
-- yarn add @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-airbnb eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks prettier -D
-
+- yarn add eslint-plugin-react-hooks eslint-plugin-react -D
+    > "eslint.validate": [
+    >  "javascript",
+    >  "javascriptreact",
+    >  "typescript",
+    >  "typescriptreact"
+    >]
 ## To install locally
 
 > yarn install

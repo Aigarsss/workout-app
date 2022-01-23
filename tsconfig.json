@@ -15,5 +15,6 @@
             "@App/*": ["./src/*"]
         }
     },
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules"],
+    "extends": "./node_modules/@tsconfig/recommended/tsconfig.json"
 }
