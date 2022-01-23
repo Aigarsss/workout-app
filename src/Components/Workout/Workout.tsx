@@ -4,47 +4,76 @@ import { Link } from 'react-router-dom';
 
 const Workout: React.FC = () => {
     const totalRounds = 2;
-    const [currentRound, setCurrentRound] = useState(1);
+    const roundLength = 5;
+    const breakLength = 2;
+    const [currentRound, setCurrentRound] = useState(0);
     const [isBreak, setIsBreak] = useState(true);
-    const roundLength = 10;
-    const breakLength = 5;
     const [seconds, setSeconds] = useState(breakLength);
+    const [isPaused, setIsPaused] = useState(false);
+
+    const intervalCounter = setInterval(() => {
+        // Check if timer needs to be stopped
+        if (currentRound < totalRounds && !isPaused) {
+            if (seconds > 0) {
+                setSeconds(seconds - 1);
+            }
+            if (seconds === 0) {
+                if (isBreak) {
+                    setSeconds(roundLength);
+                } else {
+                    // Increment round on round start
+                    setCurrentRound(currentRound + 1);
+                    setSeconds(breakLength);
+                }
+
+                // Switch from break to round and the other way around
+                setIsBreak(!isBreak);
+            }
+        }
+
+        clearInterval(intervalCounter);
+    }, 1000);
 
     useEffect(() => {
-        const intervalCounter = setInterval(() => {
-            // Check if timer needs to be stopped
-            if (currentRound <= totalRounds) {
-                if (seconds > 0) {
-                    setSeconds(seconds - 1);
-                }
-                if (seconds === 0) {
-                    if (isBreak) {
-                        setSeconds(roundLength);
-                    } else {
-                        // Increment round on round start
-                        setCurrentRound(currentRound + 1);
-                        setSeconds(breakLength);
-                    }
-
-                    // Switch from break to round and the other way around
-                    setIsBreak(!isBreak);
-                }
-            }
-
-            clearInterval(intervalCounter);
-        }, 1000);
+        intervalCounter;
         return () => {
             clearInterval(intervalCounter);
         };
-    }, [currentRound, isBreak, seconds, totalRounds]);
+    }, [currentRound, intervalCounter, isBreak, seconds, totalRounds]);
+
+    const pauseTimer = () => {
+        clearInterval(intervalCounter);
+        setIsPaused(true);
+    };
+
+    const resumeTimer = () => {
+        setSeconds(seconds);
+        setIsPaused(false);
+    };
+
+    const isWorkoutOver = currentRound === totalRounds;
+
+    const workoutBody = (
+        <div>
+            {isPaused ? (
+                <button onClick={() => resumeTimer()}>Resume</button>
+            ) : (
+                <button onClick={() => pauseTimer()}>Pause</button>
+            )}
+            <div>Round {currentRound + 1}</div>
+            {isBreak ? <div>REST</div> : <div>WORK</div>}
+            <div>Time left: {seconds} seconds</div>
+            {isBreak && 'Next Excercise:'}
+            <div>{mockData[currentRound].name}</div>
+        </div>
+    );
+
+    const endedWorkoutBody = <div>Workout over</div>;
 
     return (
         <div>
             <Link to="/">Home</Link>
-            <div>Round {currentRound}</div>
-            {isBreak ? <div>REST</div> : <div>WORK</div>}
-            <div>Time left: {seconds} seconds</div>
-            {currentRound > totalRounds && 'Workout over'}
+            {isWorkoutOver ? endedWorkoutBody : workoutBody}
         </div>
     );
 };

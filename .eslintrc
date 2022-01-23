@@ -17,6 +17,7 @@
         "no-console": 1,
         "@typescript-eslint/no-explicit-any": "warn",
         "react-hooks/exhaustive-deps": "error",
+        "react-hooks/rules-of-hooks": "warn",
         "prettier/prettier": "warn"
     }
   }
