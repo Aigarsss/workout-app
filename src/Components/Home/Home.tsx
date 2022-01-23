@@ -1,15 +1,17 @@
 import { mockData } from '@App/MockApi/mockData';
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
-    
+
     return (
-        <form onSubmit={(event) => {
-            event.preventDefault();
-            navigate('/workout');
-        }}>
+        <form
+            onSubmit={(event) => {
+                event.preventDefault();
+                navigate('/workout');
+            }}
+        >
             <label htmlFor="roundTime">Round duration</label>
             <input type="number" defaultValue={1} name="roundTime" />
 
@@ -33,7 +35,7 @@ const Home: React.FC = () => {
 
             <button>Button</button>
         </form>
-    )
-}
+    );
+};
 
 export default Home;

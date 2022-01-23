@@ -3,16 +3,20 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint",
-      "react", "react-hooks"
+      "react", 
+      "react-hooks",
+      "prettier"
     ],
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended"
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
     ],
     "rules": { 
         "no-console": 1,
         "@typescript-eslint/no-explicit-any": "warn",
-        "react-hooks/exhaustive-deps": "error"
+        "react-hooks/exhaustive-deps": "error",
+        "prettier/prettier": "warn"
     }
   }

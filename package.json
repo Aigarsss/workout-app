@@ -19,12 +19,15 @@
     "autoprefixer": "^10.4.2",
     "css-loader": "^6.5.1",
     "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.5.2",
     "node-sass": "^7.0.1",
     "postcss-loader": "^6.2.1",
+    "prettier": "^2.5.1",
     "react-router-dom": "^6.2.1",
     "sass-loader": "^12.4.0",
     "source-map-loader": "^3.0.1",
@@ -40,6 +43,6 @@
     "build": "webpack --mode production",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "format": "prettier --write ./src/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettier.json"
+    "format": "prettier --write ./src/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc"
   }
 }
