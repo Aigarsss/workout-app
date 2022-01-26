@@ -4,10 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 const types = [
     {
-        label: 'No Exercise',
-        code: 'noExercise'
-    },
-    {
         label: 'Abs',
         code: 'abs'
     },
@@ -98,6 +94,14 @@ export const useHome = (): UseHome => {
 
     const handleSumbtit = () => {
         setIsLoading(true);
+
+        const exercises = Object.entries(formData)
+            .filter(([, value]) => value === true)
+            .map(([key]) => key);
+
+        // Query variables
+        console.log(formData.totalRounds);
+        console.log(exercises);
 
         setTimeout(() => {
             setIsLoading(false);

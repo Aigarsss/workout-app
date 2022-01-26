@@ -51,6 +51,25 @@ const Home: React.FC = () => {
 
             <fieldset>
                 <legend>Select excercise types</legend>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="noExercise"
+                        name="noExercise"
+                        value="noExercise"
+                        onChange={handleChange}
+                        disabled={
+                            formData.abs ||
+                            formData.chest ||
+                            formData.legs ||
+                            formData.shoulders ||
+                            formData.triceps ||
+                            formData.warmUp
+                        }
+                    />
+                    <label htmlFor="noExercise">No Exercise</label>
+                </div>
+
                 {workoutTypes.map((type) => {
                     return (
                         <div key={type.code}>
@@ -60,6 +79,7 @@ const Home: React.FC = () => {
                                 name={type.code}
                                 value={type.code}
                                 onChange={handleChange}
+                                disabled={formData.noExercise}
                             />
                             <label htmlFor={type.code}>{type.label}</label>
                         </div>
