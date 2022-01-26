@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const formReducer = (state: any, event: { name: string; value: boolean | number | string }) => {
+const formReducer = (state: typeof defaultState, event: { name: string; value: boolean | number | string }) => {
     return {
         ...state,
         [event.name]: event.value
@@ -119,13 +119,13 @@ const Home: React.FC = () => {
         });
     };
 
-    console.log(formData);
-
     return (
         <form
             onSubmit={(event: React.SyntheticEvent) => {
                 event.preventDefault();
-                // navigate('/workout');
+                console.log(formData);
+                // handle submit, load data into context, redirect to workout
+                navigate('/workout');
             }}
         >
             <label>

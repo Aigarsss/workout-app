@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
 
 const Workout: React.FC = () => {
-    const { isPaused, isBreak, currentRound, seconds, resumeTimer, pauseTimer, isWorkoutOver } = useWorkout();
+    const { isPaused, isBreak, currentRound, seconds, resumeTimer, pauseTimer, isWorkoutOver, totalRounds } = useWorkout();
 
     const workoutBody = (
         <div>
@@ -13,7 +13,9 @@ const Workout: React.FC = () => {
             ) : (
                 <button onClick={() => pauseTimer()}>Pause</button>
             )}
-            <div>Round {currentRound + 1}</div>
+            <div>
+                Round {currentRound + 1} / {totalRounds}
+            </div>
             {isBreak ? <div>REST</div> : <div>WORK</div>}
             <div>Time left: {seconds} seconds</div>
             {isBreak && 'Next Excercise:'}

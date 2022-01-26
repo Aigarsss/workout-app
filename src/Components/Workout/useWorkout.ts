@@ -8,6 +8,7 @@ type UseWorkout = {
     resumeTimer: () => void;
     pauseTimer: () => void;
     isWorkoutOver: boolean;
+    totalRounds: number;
 };
 
 export const useWorkout = (): UseWorkout => {
@@ -68,6 +69,7 @@ export const useWorkout = (): UseWorkout => {
         seconds,
         resumeTimer,
         pauseTimer,
-        isWorkoutOver
+        isWorkoutOver,
+        totalRounds
     };
 };
