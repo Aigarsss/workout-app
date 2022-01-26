@@ -1,37 +1,16 @@
-import React, { useReducer, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import { useHome } from './useHome';
 import { useWorkoutContext } from '@App/Context/workoutContext';
 
 const Home: React.FC = () => {
-    const navigate = useNavigate();
     const { formData, handleChange } = useWorkoutContext();
-    const [isLoading, setIsLoading] = useState(false);
-    const { workoutDurations, workoutTypes } = useHome();
-
-    const handleSumbtit = () => {
-        setIsLoading(true);
-
-        // Handle API call to get workout details. set them in state.
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-    };
+    const { workoutDurations, workoutTypes, isLoading, handleSumbtit } = useHome();
 
     return !isLoading ? (
         <form
             onSubmit={(event: React.SyntheticEvent) => {
                 event.preventDefault();
-
-                // Variables to pass to API
-                // totalRounds: DEFAULT_TOTAL_ROUNDS
-                // exercises[]: ['abs', 'legs']
-
-                console.log(formData);
-
                 handleSumbtit();
-                // handle submit, load data into context, redirect to workout
-                // navigate('/workout');
             }}
         >
             <label>

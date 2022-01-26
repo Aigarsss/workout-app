@@ -1,3 +1,7 @@
+import { useWorkoutContext } from '@App/Context/workoutContext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const types = [
     {
         label: 'No Exercise',
@@ -80,9 +84,31 @@ const durations = [
     }
 ];
 
-export const useHome = () => {
+type UseHome = {
+    workoutTypes: Array<{ label: string; code: string }>;
+    workoutDurations: Array<{ label: string; value: string }>;
+    isLoading: boolean;
+    handleSumbtit: () => void;
+};
+
+export const useHome = (): UseHome => {
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const { formData } = useWorkoutContext();
+
+    const handleSumbtit = () => {
+        setIsLoading(true);
+
+        setTimeout(() => {
+            setIsLoading(false);
+            navigate('/workout');
+        }, 2000);
+    };
+
     return {
         workoutTypes: types,
-        workoutDurations: durations
+        workoutDurations: durations,
+        isLoading,
+        handleSumbtit
     };
 };
