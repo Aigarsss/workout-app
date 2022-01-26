@@ -1,8 +1,8 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext } from 'react';
 import React from 'react';
-import { useApp } from '@App/Context/useApp';
+import { useApp, UseApp } from '@App/Context/useApp';
 
-const WorkoutContext = createContext<any>({});
+const WorkoutContext = createContext<UseApp>({} as UseApp);
 
 const WorkoutContextProvider: React.FC = ({ children }) => {
     const data = useApp();

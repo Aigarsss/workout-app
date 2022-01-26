@@ -4,7 +4,23 @@ const DEFAULT_ROUND_LENGTH = 60;
 const DEFAULT_BREAK_LENGTH = 15;
 const DEFAULT_TOTAL_ROUNDS = 5;
 
-const formReducer = (state: any, event: { name: string; value: boolean | number | string }) => {
+export type UseApp = {
+    formData: {
+        roundLength: number;
+        breakLength: number;
+        totalRounds: number;
+        noExercise: boolean;
+        abs: boolean;
+        legs: boolean;
+        chest: boolean;
+        triceps: boolean;
+        warmUp: boolean;
+        shoulders: boolean;
+    };
+    handleChange: (event: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => void;
+};
+
+const formReducer = (state: UseApp['formData'], event: { name: string; value: boolean | number | string }) => {
     return {
         ...state,
         [event.name]: event.value
@@ -37,6 +53,6 @@ export const useApp = () => {
 
     return {
         formData,
-        handleChange: handleChange
+        handleChange
     };
 };

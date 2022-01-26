@@ -3,10 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useHome } from './useHome';
 import { useWorkoutContext } from '@App/Context/workoutContext';
 
-const DEFAULT_ROUND_LENGTH = 60;
-const DEFAULT_BREAK_LENGTH = 15;
-const DEFAULT_TOTAL_ROUNDS = 5;
-
 const Home: React.FC = () => {
     const navigate = useNavigate();
     const { formData, handleChange } = useWorkoutContext();
