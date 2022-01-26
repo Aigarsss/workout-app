@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
 
 const Workout: React.FC = () => {
-    const { isPaused, isBreak, currentRound, seconds, resumeTimer, pauseTimer, isWorkoutOver, totalRounds } = useWorkout();
+    const { isPaused, isBreak, currentRound, seconds, resumeTimer, pauseTimer, isWorkoutOver, totalRounds } =
+        useWorkout();
 
     const workoutBody = (
         <div>

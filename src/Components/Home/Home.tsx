@@ -1,137 +1,47 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const formReducer = (state: typeof defaultState, event: { name: string; value: boolean | number | string }) => {
-    return {
-        ...state,
-        [event.name]: event.value
-    };
-};
+import { useHome } from './useHome';
+import { useWorkoutContext } from '@App/Context/workoutContext';
 
 const DEFAULT_ROUND_LENGTH = 60;
 const DEFAULT_BREAK_LENGTH = 15;
 const DEFAULT_TOTAL_ROUNDS = 5;
 
-const defaultState = {
-    roundLength: DEFAULT_ROUND_LENGTH,
-    breakLength: DEFAULT_BREAK_LENGTH,
-    totalRounds: DEFAULT_TOTAL_ROUNDS,
-    noExercise: false,
-    abs: false,
-    legs: false,
-    chest: false,
-    triceps: false,
-    warmUp: false,
-    shoulders: false
-};
-
-const types = [
-    {
-        label: 'No Exercise',
-        code: 'noExercise'
-    },
-    {
-        label: 'Abs',
-        code: 'abs'
-    },
-    {
-        label: 'Legs',
-        code: 'legs'
-    },
-    {
-        label: 'Chest',
-        code: 'chest'
-    },
-    {
-        label: 'Triceps',
-        code: 'triceps'
-    },
-    {
-        label: 'Warm Up',
-        code: 'warmUp'
-    },
-    {
-        label: 'Shoulders',
-        code: 'shoulders'
-    }
-];
-
-const durations = [
-    {
-        label: '10s',
-        value: '10'
-    },
-    {
-        label: '15s',
-        value: '15'
-    },
-    {
-        label: '30s',
-        value: '30'
-    },
-    {
-        label: '45s',
-        value: '45'
-    },
-    {
-        label: '1m',
-        value: '60'
-    },
-    {
-        label: '1.5m',
-        value: '90'
-    },
-    {
-        label: '2m',
-        value: '120'
-    },
-    {
-        label: '3m',
-        value: '180'
-    },
-    {
-        label: '4m',
-        value: '240'
-    },
-    {
-        label: '5m',
-        value: '300'
-    },
-    {
-        label: '10m',
-        value: '600'
-    },
-    {
-        label: '20m',
-        value: '1200'
-    }
-];
-
 const Home: React.FC = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useReducer(formReducer, defaultState);
+    const { formData, handleChange } = useWorkoutContext();
+    const [isLoading, setIsLoading] = useState(false);
+    const { workoutDurations, workoutTypes } = useHome();
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => {
-        const isCheckbox = event.target.type === 'checkbox';
-        setFormData({
-            name: event.target.name,
-            value: isCheckbox ? event.target.checked : event.target.value
-        });
+    const handleSumbtit = () => {
+        setIsLoading(true);
+
+        // Handle API call to get workout details. set them in state.
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
     };
 
-    return (
+    return !isLoading ? (
         <form
             onSubmit={(event: React.SyntheticEvent) => {
                 event.preventDefault();
+
+                // Variables to pass to API
+                // totalRounds: DEFAULT_TOTAL_ROUNDS
+                // exercises[]: ['abs', 'legs']
+
                 console.log(formData);
+
+                handleSumbtit();
                 // handle submit, load data into context, redirect to workout
-                navigate('/workout');
+                // navigate('/workout');
             }}
         >
             <label>
                 <p>Round duration</p>
-                <select name="roundLength" onChange={handleChange} defaultValue={DEFAULT_ROUND_LENGTH}>
-                    {durations.map((duration) => (
+                <select name="roundLength" onChange={handleChange} defaultValue={formData.roundLength}>
+                    {workoutDurations.map((duration) => (
                         <option value={duration.value} key={duration.value}>
                             {duration.label}
                         </option>
@@ -141,8 +51,8 @@ const Home: React.FC = () => {
 
             <label>
                 <p>Break duration</p>
-                <select name="breakLength" onChange={handleChange} defaultValue={DEFAULT_BREAK_LENGTH}>
-                    {durations.map((duration) => (
+                <select name="breakLength" onChange={handleChange} defaultValue={formData.breakLength}>
+                    {workoutDurations.map((duration) => (
                         <option value={duration.value} key={duration.value}>
                             {duration.label}
                         </option>
@@ -152,7 +62,7 @@ const Home: React.FC = () => {
 
             <label>
                 <p>Total rounds</p>
-                <select name="totalRounds" onChange={handleChange} defaultValue={DEFAULT_TOTAL_ROUNDS}>
+                <select name="totalRounds" onChange={handleChange} defaultValue={formData.totalRounds}>
                     {Array.from(Array(20).keys()).map((option) => {
                         const val = option + 1;
                         return (
@@ -166,7 +76,7 @@ const Home: React.FC = () => {
 
             <fieldset>
                 <legend>Select excercise types</legend>
-                {types.map((type) => {
+                {workoutTypes.map((type) => {
                     return (
                         <div key={type.code}>
                             <input
@@ -184,6 +94,8 @@ const Home: React.FC = () => {
 
             <button>Button</button>
         </form>
+    ) : (
+        <div>loading...</div>
     );
 };
 
