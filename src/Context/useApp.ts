@@ -19,7 +19,7 @@ export type UseApp = {
         shoulders: boolean;
     };
     handleChange: (event: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => void;
-    setWorkoutProgram: any;
+    setWorkoutProgram: (workoutProgram: Array<ApiData>) => void;
     workoutProgram: Array<ApiData>;
 };
 
