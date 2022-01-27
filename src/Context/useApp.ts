@@ -45,7 +45,7 @@ const defaultState = {
 
 export const useApp = () => {
     const [formData, setFormData] = useReducer(formReducer, defaultState);
-    const [workoutProgram, setWorkoutProgram] = useState([]);
+    const [workoutProgram, setWorkoutProgram] = useState<Array<ApiData>>([]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => {
         const isCheckbox = event.target.type === 'checkbox';

@@ -13,10 +13,8 @@ type UseWorkout = {
 };
 
 export const useWorkout = (): UseWorkout => {
-    const { workoutProgram } = useWorkoutContext();
-    const totalRounds = 2;
-    const roundLength = 5;
-    const breakLength = 2;
+    const { formData } = useWorkoutContext();
+    const { breakLength, roundLength, totalRounds } = formData;
     const [currentRound, setCurrentRound] = useState(0);
     const [isBreak, setIsBreak] = useState(true);
     const [seconds, setSeconds] = useState(breakLength);

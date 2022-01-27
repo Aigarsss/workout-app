@@ -1,10 +1,10 @@
-export type ApiData = Array<{
+export type ApiData = {
     type: string;
     name: string;
     demo: string;
-}>;
+};
 
-export const mockData: ApiData = [
+export const mockData: Array<ApiData> = [
     // abs
     {
         type: 'abs',

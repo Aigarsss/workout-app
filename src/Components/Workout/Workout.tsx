@@ -1,10 +1,14 @@
+import { useWorkoutContext } from '@App/Context/workoutContext';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
 
 const Workout: React.FC = () => {
+    const { workoutProgram } = useWorkoutContext();
     const { isPaused, isBreak, currentRound, seconds, resumeTimer, pauseTimer, isWorkoutOver, totalRounds } =
         useWorkout();
+
+    const { name, type } = workoutProgram[currentRound];
 
     const workoutBody = (
         <div>
@@ -19,7 +23,9 @@ const Workout: React.FC = () => {
             {isBreak ? <div>REST</div> : <div>WORK</div>}
             <div>Time left: {seconds} seconds</div>
             {isBreak && 'Next Excercise:'}
-            <div>Exercise name</div>
+            <div>
+                {name} ({type})
+            </div>
         </div>
     );
 

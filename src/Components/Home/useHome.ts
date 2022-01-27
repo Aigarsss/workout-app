@@ -1,7 +1,7 @@
 import { useWorkoutContext } from '@App/Context/workoutContext';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mockData } from '@App/MockApi/mockData';
+import { ApiData, mockData } from '@App/MockApi/mockData';
 
 const types = [
     {
@@ -31,6 +31,14 @@ const types = [
 ];
 
 const durations = [
+    {
+        label: '1s',
+        value: '1'
+    },
+    {
+        label: '5s',
+        value: '5'
+    },
     {
         label: '10s',
         value: '10'
@@ -88,8 +96,17 @@ type UseHome = {
     handleSumbtit: () => void;
 };
 
-const getRandomArray = (arr: Array<any>): string | undefined => {
-    return arr[Math.floor(Math.random() * arr.length)];
+const getRandomArrayObject = (array: any): ApiData | undefined => {
+    return array[Math.floor(Math.random() * array.length)];
+};
+
+const shuffleArray = (array: any) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
 };
 
 export const useHome = (): UseHome => {
@@ -113,23 +130,24 @@ export const useHome = (): UseHome => {
         // Use subcounter to loop the exercises array over and over again
         let subCounter = 0;
         while (i <= formData.totalRounds) {
-            if (subCounter === exercises.length - 1) {
+            if (subCounter === exercises.length) {
                 subCounter = 0;
             }
 
             // Filter all exercises of specific type and then select one randomly and add to the final list
             const list = mockData.filter(({ type }) => type === exercises[subCounter]);
-            exerciseList.push(getRandomArray(list));
+
+            exerciseList.push(getRandomArrayObject(list));
             subCounter++;
             i++;
         }
 
-        setWorkoutProgram(exerciseList);
+        setWorkoutProgram(shuffleArray(exerciseList));
 
         setTimeout(() => {
             setIsLoading(false);
             navigate('/workout');
-        }, 2000);
+        }, 1200);
     };
 
     return {
