@@ -1,4 +1,5 @@
-import { useReducer } from 'react';
+import { ApiData } from '@App/MockApi/mockData';
+import { useReducer, useState } from 'react';
 
 const DEFAULT_ROUND_LENGTH = 60;
 const DEFAULT_BREAK_LENGTH = 15;
@@ -18,6 +19,8 @@ export type UseApp = {
         shoulders: boolean;
     };
     handleChange: (event: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => void;
+    setWorkoutProgram: any;
+    workoutProgram: Array<ApiData>;
 };
 
 const formReducer = (state: UseApp['formData'], event: { name: string; value: boolean | number | string }) => {
@@ -27,21 +30,22 @@ const formReducer = (state: UseApp['formData'], event: { name: string; value: bo
     };
 };
 
-export const useApp = () => {
-    const defaultState = {
-        roundLength: DEFAULT_ROUND_LENGTH,
-        breakLength: DEFAULT_BREAK_LENGTH,
-        totalRounds: DEFAULT_TOTAL_ROUNDS,
-        noExercise: false,
-        abs: false,
-        legs: false,
-        chest: false,
-        triceps: false,
-        warmUp: false,
-        shoulders: false
-    };
+const defaultState = {
+    roundLength: DEFAULT_ROUND_LENGTH,
+    breakLength: DEFAULT_BREAK_LENGTH,
+    totalRounds: DEFAULT_TOTAL_ROUNDS,
+    noExercise: false,
+    abs: false,
+    legs: false,
+    chest: false,
+    triceps: false,
+    warmUp: false,
+    shoulders: false
+};
 
+export const useApp = () => {
     const [formData, setFormData] = useReducer(formReducer, defaultState);
+    const [workoutProgram, setWorkoutProgram] = useState([]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => {
         const isCheckbox = event.target.type === 'checkbox';
@@ -53,6 +57,8 @@ export const useApp = () => {
 
     return {
         formData,
-        handleChange
+        handleChange,
+        workoutProgram,
+        setWorkoutProgram
     };
 };

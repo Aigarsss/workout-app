@@ -1,6 +1,7 @@
 import { useWorkoutContext } from '@App/Context/workoutContext';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { mockData } from '@App/MockApi/mockData';
 
 const types = [
     {
@@ -87,21 +88,43 @@ type UseHome = {
     handleSumbtit: () => void;
 };
 
+const getRandomArray = (arr: Array<any>): string | undefined => {
+    return arr[Math.floor(Math.random() * arr.length)];
+};
+
 export const useHome = (): UseHome => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const { formData } = useWorkoutContext();
+    const { formData, setWorkoutProgram } = useWorkoutContext();
 
     const handleSumbtit = () => {
         setIsLoading(true);
 
+        // Take all the exercise types from form data and add them to a simple array
         const exercises = Object.entries(formData)
             .filter(([, value]) => value === true)
             .map(([key]) => key);
 
-        // Query variables
-        console.log(formData.totalRounds);
-        console.log(exercises);
+        // FAKE API IMPLEMENTATION. TODO REPLACE
+        // Initiate final exercise list, that we will put in context for /workout page
+        const exerciseList = [];
+
+        let i = 1;
+        // Use subcounter to loop the exercises array over and over again
+        let subCounter = 0;
+        while (i <= formData.totalRounds) {
+            if (subCounter === exercises.length - 1) {
+                subCounter = 0;
+            }
+
+            // Filter all exercises of specific type and then select one randomly and add to the final list
+            const list = mockData.filter(({ type }) => type === exercises[subCounter]);
+            exerciseList.push(getRandomArray(list));
+            subCounter++;
+            i++;
+        }
+
+        setWorkoutProgram(exerciseList);
 
         setTimeout(() => {
             setIsLoading(false);

@@ -1,3 +1,4 @@
+import { useWorkoutContext } from '@App/Context/workoutContext';
 import { useEffect, useState } from 'react';
 
 type UseWorkout = {
@@ -12,6 +13,7 @@ type UseWorkout = {
 };
 
 export const useWorkout = (): UseWorkout => {
+    const { workoutProgram } = useWorkoutContext();
     const totalRounds = 2;
     const roundLength = 5;
     const breakLength = 2;

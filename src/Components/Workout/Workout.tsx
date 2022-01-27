@@ -1,4 +1,3 @@
-import { mockData } from '@App/MockApi/mockData';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
@@ -20,7 +19,7 @@ const Workout: React.FC = () => {
             {isBreak ? <div>REST</div> : <div>WORK</div>}
             <div>Time left: {seconds} seconds</div>
             {isBreak && 'Next Excercise:'}
-            <div>{mockData[currentRound].name}</div>
+            <div>Exercise name</div>
         </div>
     );
 
