@@ -2,6 +2,7 @@ import { useWorkoutContext } from '@App/Context/workoutContext';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
+import moment from 'moment';
 
 const Workout: React.FC = () => {
     const { workoutProgram } = useWorkoutContext();
@@ -9,6 +10,15 @@ const Workout: React.FC = () => {
         useWorkout();
 
     const { name, type } = workoutProgram[currentRound];
+
+    const formattedTime = () => {
+        const duration = moment.duration(seconds, 'seconds');
+
+        const min = duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes();
+        const sec = duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds();
+
+        return `${min}:${sec}`;
+    };
 
     const workoutBody = (
         <div>
@@ -21,7 +31,7 @@ const Workout: React.FC = () => {
                 Round {currentRound + 1} / {totalRounds}
             </div>
             {isBreak ? <div>REST</div> : <div>WORK</div>}
-            <div>Time left: {seconds} seconds</div>
+            <div>Time left: {formattedTime()}</div>
             {isBreak && 'Next Excercise:'}
             <div>
                 {name} ({type})
