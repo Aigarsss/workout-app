@@ -118,24 +118,23 @@ export const useHome = (): UseHome => {
         setIsLoading(true);
 
         // Take all the exercise types from form data and add them to a simple array
-        const exercises = Object.entries(formData)
+        const exerciseTypes = Object.entries(formData)
             .filter(([, value]) => value === true)
             .map(([key]) => key);
 
         // FAKE API IMPLEMENTATION. TODO REPLACE
         // Initiate final exercise list, that we will put in context for /workout page
         const exerciseList = [];
-
         let i = 1;
         // Use subcounter to loop the exercises array over and over again
         let subCounter = 0;
         while (i <= formData.totalRounds) {
-            if (subCounter === exercises.length) {
+            if (subCounter === exerciseTypes.length) {
                 subCounter = 0;
             }
 
             // Filter all exercises of specific type and then select one randomly and add to the final list
-            const list = mockData.filter(({ type }) => type === exercises[subCounter]);
+            const list = mockData.filter(({ type }) => type === exerciseTypes[subCounter]);
 
             exerciseList.push(getRandomArrayObject(list));
             subCounter++;

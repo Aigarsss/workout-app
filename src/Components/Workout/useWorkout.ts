@@ -1,4 +1,5 @@
 import { useWorkoutContext } from '@App/Context/workoutContext';
+import { ApiData } from '@App/MockApi/mockData';
 import { useEffect, useState } from 'react';
 
 type UseWorkout = {
@@ -11,10 +12,21 @@ type UseWorkout = {
     isWorkoutOver: boolean;
     totalRounds: number;
     totalSeconds: number;
+    workoutProgram: Array<ApiData>;
 };
 
+// type StorageData = {
+//     isPaused: boolean;
+//     isBreak: boolean;
+//     currentRound: number;
+//     seconds: number;
+//     totalRounds: number;
+//     totalSecond: number;
+//     workoutProgram: Array<ApiData>;
+// };
+
 export const useWorkout = (): UseWorkout => {
-    const { formData } = useWorkoutContext();
+    const { workoutProgram, formData, setWorkoutProgram } = useWorkoutContext();
     const { breakLength, roundLength, totalRounds } = formData;
     const [currentRound, setCurrentRound] = useState(0);
     const [isBreak, setIsBreak] = useState(true);
@@ -61,6 +73,35 @@ export const useWorkout = (): UseWorkout => {
         };
     }, [currentRound, intervalCounter, isBreak, seconds, totalRounds]);
 
+    // useEffect(() => {
+    //     const storageData: any = localStorage.getItem('storageData');
+
+    //     if (storageData) {
+    //         const data = JSON.parse(storageData);
+    //         setIsPaused(data.isPaused);
+    //         setIsBreak(data.isBreak);
+    //         setCurrentRound(data.currentRound);
+    //         setSeconds(data.seconds);
+    //         // setTotalRounds(data.totalRounds);
+    //         setTotalSeconds(data.totalSeconds);
+    //         setWorkoutProgram(data.workoutProgram);
+    //     }
+    // }, []);
+
+    // useEffect(() => {
+    //     const storageData = {
+    //         isPaused,
+    //         isBreak,
+    //         currentRound,
+    //         seconds,
+    //         totalRounds,
+    //         totalSeconds,
+    //         workoutProgram
+    //     };
+
+    //     localStorage.setItem('storageData', JSON.stringify(storageData));
+    // });
+
     const pauseTimer = () => {
         clearInterval(intervalCounter);
         setIsPaused(true);
@@ -80,6 +121,7 @@ export const useWorkout = (): UseWorkout => {
         pauseTimer,
         isWorkoutOver,
         totalRounds,
-        totalSeconds
+        totalSeconds,
+        workoutProgram
     };
 };
