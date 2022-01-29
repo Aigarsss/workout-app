@@ -6,19 +6,29 @@ import moment from 'moment';
 
 const Workout: React.FC = () => {
     const { workoutProgram } = useWorkoutContext();
-    const { isPaused, isBreak, currentRound, seconds, resumeTimer, pauseTimer, isWorkoutOver, totalRounds } =
-        useWorkout();
+    const {
+        isPaused,
+        isBreak,
+        currentRound,
+        seconds,
+        resumeTimer,
+        pauseTimer,
+        isWorkoutOver,
+        totalRounds,
+        totalSeconds
+    } = useWorkout();
 
-    const { name, type } = workoutProgram[currentRound];
+    // TODO fix last round issue. fails, because there is no such round
+    // const { name, type } = workoutProgram[currentRound];
 
-    const formattedTime = () => {
+    const formattedTime = (time: number) => {
         // const duration = moment.duration(seconds, 'seconds');
 
         // const min = duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes();
         // const sec = duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds();
 
-        const min = Math.floor(seconds / 60);
-        const sec = seconds % 60;
+        const min = Math.floor(time / 60);
+        const sec = time % 60;
 
         const minWithZero = min < 10 ? `0${min}` : min;
         const secWithZero = sec < 10 ? `0${sec}` : sec;
@@ -33,15 +43,16 @@ const Workout: React.FC = () => {
             ) : (
                 <button onClick={() => pauseTimer()}>Pause</button>
             )}
+            <div>Time remaining: {formattedTime(totalSeconds)}</div>
             <div>
                 Round {currentRound + 1} / {totalRounds}
             </div>
             {isBreak ? <div>REST</div> : <div>WORK</div>}
-            <div>Time left: {formattedTime()}</div>
+            <div>Time left: {formattedTime(seconds)}</div>
             {isBreak && 'Next Excercise:'}
-            <div>
+            {/* <div>
                 {name} ({type})
-            </div>
+            </div> */}
         </div>
     );
 

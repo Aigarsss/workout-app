@@ -10,6 +10,7 @@ type UseWorkout = {
     pauseTimer: () => void;
     isWorkoutOver: boolean;
     totalRounds: number;
+    totalSeconds: number;
 };
 
 export const useWorkout = (): UseWorkout => {
@@ -19,14 +20,18 @@ export const useWorkout = (): UseWorkout => {
     const [isBreak, setIsBreak] = useState(true);
     const [seconds, setSeconds] = useState(breakLength);
     const [isPaused, setIsPaused] = useState(false);
+    const [isWorkoutOver, setIsWorkoutOver] = useState(false);
+    const [totalSeconds, setTotalSeconds] = useState(
+        formData.totalRounds * formData.roundLength + formData.totalRounds * formData.breakLength
+    );
 
     const intervalCounter = setInterval(() => {
         // Check if timer needs to be stopped
-        if (currentRound < totalRounds && !isPaused) {
-            if (seconds > 0) {
+        if (currentRound < totalRounds && !isPaused && !isWorkoutOver) {
+            if (seconds > 1) {
                 setSeconds(seconds - 1);
             }
-            if (seconds === 0) {
+            if (seconds === 1) {
                 if (isBreak) {
                     setSeconds(roundLength);
                 } else {
@@ -38,6 +43,7 @@ export const useWorkout = (): UseWorkout => {
                 // Switch from break to round and the other way around
                 setIsBreak(!isBreak);
             }
+            setTotalSeconds((prevVal) => prevVal - 1);
         }
 
         clearInterval(intervalCounter);
@@ -45,6 +51,7 @@ export const useWorkout = (): UseWorkout => {
 
     useEffect(() => {
         intervalCounter;
+
         return () => {
             clearInterval(intervalCounter);
         };
@@ -60,7 +67,12 @@ export const useWorkout = (): UseWorkout => {
         setIsPaused(false);
     };
 
-    const isWorkoutOver = currentRound === totalRounds;
+    useEffect(() => {
+        // TODO, check why === doesnt work here
+        if (currentRound == totalRounds) {
+            setIsWorkoutOver(true);
+        }
+    }, [currentRound, totalRounds]);
 
     return {
         isPaused,
@@ -70,6 +82,7 @@ export const useWorkout = (): UseWorkout => {
         resumeTimer,
         pauseTimer,
         isWorkoutOver,
-        totalRounds
+        totalRounds,
+        totalSeconds
     };
 };

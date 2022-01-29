@@ -88,8 +88,19 @@ const Home: React.FC = () => {
                     );
                 })}
             </fieldset>
-
-            <button>Button</button>
+            <button
+                disabled={
+                    !formData.noExercise &&
+                    !formData.abs &&
+                    !formData.legs &&
+                    !formData.chest &&
+                    !formData.triceps &&
+                    !formData.warmUp &&
+                    !formData.shoulders
+                }
+            >
+                Start Workout
+            </button>
         </form>
     ) : (
         <div>loading...</div>

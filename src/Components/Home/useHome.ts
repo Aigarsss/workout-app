@@ -32,8 +32,8 @@ const types = [
 
 const durations = [
     {
-        label: '1s',
-        value: '1'
+        label: '2s',
+        value: '2'
     },
     {
         label: '5s',
