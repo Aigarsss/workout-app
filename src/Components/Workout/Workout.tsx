@@ -12,12 +12,18 @@ const Workout: React.FC = () => {
     const { name, type } = workoutProgram[currentRound];
 
     const formattedTime = () => {
-        const duration = moment.duration(seconds, 'seconds');
+        // const duration = moment.duration(seconds, 'seconds');
 
-        const min = duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes();
-        const sec = duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds();
+        // const min = duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes();
+        // const sec = duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds();
 
-        return `${min}:${sec}`;
+        const min = Math.floor(seconds / 60);
+        const sec = seconds % 60;
+
+        const minWithZero = min < 10 ? `0${min}` : min;
+        const secWithZero = sec < 10 ? `0${sec}` : sec;
+
+        return `${minWithZero}:${secWithZero}`;
     };
 
     const workoutBody = (

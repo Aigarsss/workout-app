@@ -15,7 +15,7 @@ const Home: React.FC = () => {
         >
             <label>
                 <p>Round duration</p>
-                <select name="roundLength" onChange={handleChange} defaultValue={formData.roundLength}>
+                <select name="roundLength" onChange={handleChange} value={formData.roundLength}>
                     {workoutDurations.map((duration) => (
                         <option value={duration.value} key={duration.value}>
                             {duration.label}
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
             <label>
                 <p>Break duration</p>
-                <select name="breakLength" onChange={handleChange} defaultValue={formData.breakLength}>
+                <select name="breakLength" onChange={handleChange} value={formData.breakLength}>
                     {workoutDurations.map((duration) => (
                         <option value={duration.value} key={duration.value}>
                             {duration.label}
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
 
             <label>
                 <p>Total rounds</p>
-                <select name="totalRounds" onChange={handleChange} defaultValue={formData.totalRounds}>
+                <select name="totalRounds" onChange={handleChange} value={formData.totalRounds}>
                     {Array.from(Array(20).keys()).map((option) => {
                         const val = option + 1;
                         return (
@@ -80,6 +80,8 @@ const Home: React.FC = () => {
                                 value={type.code}
                                 onChange={handleChange}
                                 disabled={formData.noExercise}
+                                // https://stackoverflow.com/questions/56568423/typescript-no-index-signature-with-a-parameter-of-type-string-was-found-on-ty
+                                checked={(formData as any)[type.code]}
                             />
                             <label htmlFor={type.code}>{type.label}</label>
                         </div>
