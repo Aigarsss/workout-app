@@ -35,8 +35,12 @@ export const useWorkout = (): UseWorkout => {
                 if (isBreak) {
                     setSeconds(roundLength);
                 } else {
-                    // Increment round on round start
-                    setCurrentRound(currentRound + 1);
+                    // If final round, set workout over, else increment round
+                    if (currentRound == totalRounds - 1) {
+                        setIsWorkoutOver(true);
+                    } else {
+                        setCurrentRound(currentRound + 1);
+                    }
                     setSeconds(breakLength);
                 }
 
@@ -66,13 +70,6 @@ export const useWorkout = (): UseWorkout => {
         setSeconds(seconds);
         setIsPaused(false);
     };
-
-    useEffect(() => {
-        // TODO, check why === doesnt work here
-        if (currentRound == totalRounds) {
-            setIsWorkoutOver(true);
-        }
-    }, [currentRound, totalRounds]);
 
     return {
         isPaused,
