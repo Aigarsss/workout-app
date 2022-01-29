@@ -1,5 +1,5 @@
 import { ApiData } from '@App/MockApi/mockData';
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 const DEFAULT_ROUND_LENGTH = 60;
 const DEFAULT_BREAK_LENGTH = 15;

@@ -1,5 +1,5 @@
 import { useWorkoutContext } from '@App/Context/workoutContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ApiData, mockData } from '@App/MockApi/mockData';
 
@@ -145,6 +145,7 @@ export const useHome = (): UseHome => {
 
         setTimeout(() => {
             setIsLoading(false);
+            localStorage.setItem('storageData', JSON.stringify(formData));
             navigate('/workout');
         }, 1200);
     };

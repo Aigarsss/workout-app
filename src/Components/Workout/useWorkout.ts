@@ -33,9 +33,9 @@ export const useWorkout = (): UseWorkout => {
     const [seconds, setSeconds] = useState(breakLength);
     const [isPaused, setIsPaused] = useState(false);
     const [isWorkoutOver, setIsWorkoutOver] = useState(false);
-    const [totalSeconds, setTotalSeconds] = useState(
-        formData.totalRounds * formData.roundLength + formData.totalRounds * formData.breakLength
-    );
+    const [totalSeconds, setTotalSeconds] = useState(totalRounds * roundLength + totalRounds * breakLength);
+
+    console.log(formData);
 
     const intervalCounter = setInterval(() => {
         // Check if timer needs to be stopped
@@ -88,19 +88,23 @@ export const useWorkout = (): UseWorkout => {
     //     }
     // }, []);
 
-    // useEffect(() => {
-    //     const storageData = {
-    //         isPaused,
-    //         isBreak,
-    //         currentRound,
-    //         seconds,
-    //         totalRounds,
-    //         totalSeconds,
-    //         workoutProgram
-    //     };
+    useEffect(() => {
+        const storageData = {
+            isPaused,
+            isBreak,
+            currentRound,
+            seconds,
+            totalRounds,
+            totalSeconds,
+            workoutProgram
+        };
 
-    //     localStorage.setItem('storageData', JSON.stringify(storageData));
-    // });
+        const existingStorage = localStorage.getItem('storageData');
+
+        if (existingStorage) {
+            localStorage.setItem('storageData', JSON.stringify({ ...JSON.parse(existingStorage), storageData }));
+        }
+    });
 
     const pauseTimer = () => {
         clearInterval(intervalCounter);
