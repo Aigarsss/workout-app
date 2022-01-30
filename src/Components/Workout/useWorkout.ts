@@ -61,20 +61,21 @@ export const useWorkout = (): UseWorkout => {
         };
     }, [currentRound, intervalCounter, isBreak, seconds, totalRounds]);
 
-    // useEffect(() => {
-    //     const storageData: any = localStorage.getItem('storageData');
+    useEffect(() => {
+        const storageData: any = localStorage.getItem('storageData');
 
-    //     if (storageData) {
-    //         const data = JSON.parse(storageData);
-    //         setIsPaused(data.isPaused);
-    //         setIsBreak(data.isBreak);
-    //         setCurrentRound(data.currentRound);
-    //         setSeconds(data.seconds);
-    //         // setTotalRounds(data.totalRounds);
-    //         setTotalSeconds(data.totalSeconds);
-    //         setWorkoutProgram(data.workoutProgram);
-    //     }
-    // }, []);
+        if (storageData) {
+            const data = JSON.parse(storageData);
+
+            if ('isPaused' in data) {
+                setIsPaused(data.isPaused);
+                setIsBreak(data.isBreak);
+                setCurrentRound(data.currentRound);
+                setSeconds(data.seconds);
+                setTotalSeconds(data.totalSeconds);
+            }
+        }
+    }, []);
 
     useEffect(() => {
         const storageData = {
@@ -82,15 +83,13 @@ export const useWorkout = (): UseWorkout => {
             isBreak,
             currentRound,
             seconds,
-            totalRounds,
-            totalSeconds,
-            workoutProgram
+            totalSeconds
         };
 
         const existingStorage = localStorage.getItem('storageData');
 
         if (existingStorage) {
-            localStorage.setItem('storageData', JSON.stringify({ ...JSON.parse(existingStorage), storageData }));
+            localStorage.setItem('storageData', JSON.stringify({ ...JSON.parse(existingStorage), ...storageData }));
         }
     });
 

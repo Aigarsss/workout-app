@@ -116,12 +116,6 @@ export const useHome = (): UseHome => {
 
     const handleSumbtit = () => {
         setIsLoading(true);
-
-        // Take all the exercise types from form data and add them to a simple array
-        // const exerciseTypes = Object.entries(formData)
-        //     .filter(([, value]) => value === true)
-        //     .map(([key]) => key);
-
         // FAKE API IMPLEMENTATION. TODO REPLACE
         // Initiate final exercise list, that we will put in context for /workout page
         const exerciseList = [];
@@ -141,11 +135,18 @@ export const useHome = (): UseHome => {
             i++;
         }
 
-        setWorkoutProgram(shuffleArray(exerciseList));
+        const program = shuffleArray(exerciseList);
+
+        setWorkoutProgram(program);
+
+        const formData = {
+            workoutProgram: program,
+            totalRounds: formRoundInfo.totalRounds
+        }
 
         setTimeout(() => {
             setIsLoading(false);
-            // localStorage.setItem('storageData', JSON.stringify(formData));
+            localStorage.setItem('storageData', JSON.stringify(formData));
             navigate('/workout');
         }, 1200);
     };
