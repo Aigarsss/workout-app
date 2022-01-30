@@ -1,9 +1,7 @@
-import { useWorkoutContext } from '@App/Context/workoutContext';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
-import moment from 'moment';
-import { Navigate } from 'react-router-dom';
+// import moment from 'moment';
 
 const formattedTime = (time: number) => {
     // const duration = moment.duration(seconds, 'seconds');
