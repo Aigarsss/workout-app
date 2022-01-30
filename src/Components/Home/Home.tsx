@@ -3,7 +3,7 @@ import { useHome } from './useHome';
 import { useWorkoutContext } from '@App/Context/workoutContext';
 
 const Home: React.FC = () => {
-    const { formData, handleChange } = useWorkoutContext();
+    const { handleRoundInfoChange, handleExerciseChange, formRoundInfo, formExerciseInfo } = useWorkoutContext();
     const { workoutDurations, workoutTypes, isLoading, handleSumbtit } = useHome();
 
     return !isLoading ? (
@@ -15,7 +15,7 @@ const Home: React.FC = () => {
         >
             <label>
                 <p>Round duration</p>
-                <select name="roundLength" onChange={handleChange} value={formData.roundLength}>
+                <select name="roundLength" onChange={handleRoundInfoChange} value={formRoundInfo.roundLength}>
                     {workoutDurations.map((duration) => (
                         <option value={duration.value} key={duration.value}>
                             {duration.label}
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
             <label>
                 <p>Break duration</p>
-                <select name="breakLength" onChange={handleChange} value={formData.breakLength}>
+                <select name="breakLength" onChange={handleRoundInfoChange} value={formRoundInfo.breakLength}>
                     {workoutDurations.map((duration) => (
                         <option value={duration.value} key={duration.value}>
                             {duration.label}
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
 
             <label>
                 <p>Total rounds</p>
-                <select name="totalRounds" onChange={handleChange} value={formData.totalRounds}>
+                <select name="totalRounds" onChange={handleRoundInfoChange} value={formRoundInfo.totalRounds}>
                     {Array.from(Array(20).keys()).map((option) => {
                         const val = option + 1;
                         return (
@@ -57,15 +57,8 @@ const Home: React.FC = () => {
                         id="noExercise"
                         name="noExercise"
                         value="noExercise"
-                        onChange={handleChange}
-                        disabled={
-                            formData.abs ||
-                            formData.chest ||
-                            formData.legs ||
-                            formData.shoulders ||
-                            formData.triceps ||
-                            formData.warmUp
-                        }
+                        onChange={handleExerciseChange}
+                        disabled={formExerciseInfo.length > 0 && !formExerciseInfo.includes('noExercise')}
                     />
                     <label htmlFor="noExercise">No Exercise</label>
                 </div>
@@ -78,29 +71,15 @@ const Home: React.FC = () => {
                                 id={type.code}
                                 name={type.code}
                                 value={type.code}
-                                onChange={handleChange}
-                                disabled={formData.noExercise}
-                                // https://stackoverflow.com/questions/56568423/typescript-no-index-signature-with-a-parameter-of-type-string-was-found-on-ty
-                                checked={(formData as any)[type.code]}
+                                onChange={handleExerciseChange}
+                                disabled={formExerciseInfo.includes('noExercise')}
                             />
                             <label htmlFor={type.code}>{type.label}</label>
                         </div>
                     );
                 })}
             </fieldset>
-            <button
-                disabled={
-                    !formData.noExercise &&
-                    !formData.abs &&
-                    !formData.legs &&
-                    !formData.chest &&
-                    !formData.triceps &&
-                    !formData.warmUp &&
-                    !formData.shoulders
-                }
-            >
-                Start Workout
-            </button>
+            <button disabled={formExerciseInfo.length === 0}>Start Workout</button>
         </form>
     ) : (
         <div>loading...</div>

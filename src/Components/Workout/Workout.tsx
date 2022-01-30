@@ -22,7 +22,6 @@ const Workout: React.FC = () => {
 
     const formattedTime = (time: number) => {
         // const duration = moment.duration(seconds, 'seconds');
-
         // const min = duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes();
         // const sec = duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds();
 

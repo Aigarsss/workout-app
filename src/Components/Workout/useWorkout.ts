@@ -15,27 +15,15 @@ type UseWorkout = {
     workoutProgram: Array<ApiData>;
 };
 
-// type StorageData = {
-//     isPaused: boolean;
-//     isBreak: boolean;
-//     currentRound: number;
-//     seconds: number;
-//     totalRounds: number;
-//     totalSecond: number;
-//     workoutProgram: Array<ApiData>;
-// };
-
 export const useWorkout = (): UseWorkout => {
-    const { workoutProgram, formData, setWorkoutProgram } = useWorkoutContext();
-    const { breakLength, roundLength, totalRounds } = formData;
+    const { workoutProgram, formRoundInfo, setWorkoutProgram } = useWorkoutContext();
+    const { breakLength, roundLength, totalRounds } = formRoundInfo;
     const [currentRound, setCurrentRound] = useState(0);
     const [isBreak, setIsBreak] = useState(true);
     const [seconds, setSeconds] = useState(breakLength);
     const [isPaused, setIsPaused] = useState(false);
     const [isWorkoutOver, setIsWorkoutOver] = useState(false);
     const [totalSeconds, setTotalSeconds] = useState(totalRounds * roundLength + totalRounds * breakLength);
-
-    console.log(formData);
 
     const intervalCounter = setInterval(() => {
         // Check if timer needs to be stopped

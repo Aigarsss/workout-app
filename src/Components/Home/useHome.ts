@@ -112,15 +112,15 @@ const shuffleArray = (array: Array<ApiData>) => {
 export const useHome = (): UseHome => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const { formData, setWorkoutProgram } = useWorkoutContext();
+    const { formExerciseInfo, formRoundInfo, setWorkoutProgram } = useWorkoutContext();
 
     const handleSumbtit = () => {
         setIsLoading(true);
 
         // Take all the exercise types from form data and add them to a simple array
-        const exerciseTypes = Object.entries(formData)
-            .filter(([, value]) => value === true)
-            .map(([key]) => key);
+        // const exerciseTypes = Object.entries(formData)
+        //     .filter(([, value]) => value === true)
+        //     .map(([key]) => key);
 
         // FAKE API IMPLEMENTATION. TODO REPLACE
         // Initiate final exercise list, that we will put in context for /workout page
@@ -128,13 +128,13 @@ export const useHome = (): UseHome => {
         let i = 1;
         // Use subcounter to loop the exercises array over and over again
         let subCounter = 0;
-        while (i <= formData.totalRounds) {
-            if (subCounter === exerciseTypes.length) {
+        while (i <= formRoundInfo.totalRounds) {
+            if (subCounter === formExerciseInfo.length) {
                 subCounter = 0;
             }
 
             // Filter all exercises of specific type and then select one randomly and add to the final list
-            const list = mockData.filter(({ type }) => type === exerciseTypes[subCounter]);
+            const list = mockData.filter(({ type }) => type === formExerciseInfo[subCounter]);
 
             exerciseList.push(getRandomArrayObject(list));
             subCounter++;
@@ -145,7 +145,7 @@ export const useHome = (): UseHome => {
 
         setTimeout(() => {
             setIsLoading(false);
-            localStorage.setItem('storageData', JSON.stringify(formData));
+            // localStorage.setItem('storageData', JSON.stringify(formData));
             navigate('/workout');
         }, 1200);
     };
