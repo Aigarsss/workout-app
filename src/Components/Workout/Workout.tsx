@@ -3,6 +3,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
 import moment from 'moment';
+import { Navigate } from 'react-router-dom';
+
+const formattedTime = (time: number) => {
+    // const duration = moment.duration(seconds, 'seconds');
+    // const min = duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes();
+    // const sec = duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds();
+
+    const min = Math.floor(time / 60);
+    const sec = time % 60;
+
+    const minWithZero = min < 10 ? `0${min}` : min;
+    const secWithZero = sec < 10 ? `0${sec}` : sec;
+
+    return `${minWithZero}:${secWithZero}`;
+};
 
 const Workout: React.FC = () => {
     const {
@@ -18,21 +33,11 @@ const Workout: React.FC = () => {
         workoutProgram
     } = useWorkout();
 
-    // const { name, type } = workoutProgram && workoutProgram[currentRound];
-
-    const formattedTime = (time: number) => {
-        // const duration = moment.duration(seconds, 'seconds');
-        // const min = duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes();
-        // const sec = duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds();
-
-        const min = Math.floor(time / 60);
-        const sec = time % 60;
-
-        const minWithZero = min < 10 ? `0${min}` : min;
-        const secWithZero = sec < 10 ? `0${sec}` : sec;
-
-        return `${minWithZero}:${secWithZero}`;
-    };
+    // Fixes initial empty state or direct access to workout route. Works a bit sketchy, would be good to redo TODO
+    if (workoutProgram.length === 0) {
+        return <Link to="/">Home</Link>;
+    }
+    const { name, type } = workoutProgram[currentRound];
 
     const workoutBody = (
         <div>
@@ -48,9 +53,9 @@ const Workout: React.FC = () => {
             {isBreak ? <div>REST</div> : <div>WORK</div>}
             <div>Time left: {formattedTime(seconds)}</div>
             {isBreak && 'Next Excercise:'}
-            {/* <div>
+            <div>
                 {name} ({type})
-            </div> */}
+            </div>
         </div>
     );
 

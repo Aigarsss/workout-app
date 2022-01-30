@@ -142,10 +142,13 @@ export const useHome = (): UseHome => {
         const formData = {
             workoutProgram: program,
             totalRounds: formRoundInfo.totalRounds
-        }
+        };
 
         setTimeout(() => {
             setIsLoading(false);
+            // Clear storage
+            localStorage.removeItem('storageData');
+            // Set new storage
             localStorage.setItem('storageData', JSON.stringify(formData));
             navigate('/workout');
         }, 1200);

@@ -15,8 +15,19 @@ type UseWorkout = {
     workoutProgram: Array<ApiData>;
 };
 
+type StorageData = {
+    isPaused: boolean;
+    isBreak: boolean;
+    isWorkoutOver: boolean;
+    currentRound: number;
+    seconds: number;
+    totalSeconds: number;
+    totalRounds: number;
+    workoutProgram: Array<ApiData>;
+};
+
 export const useWorkout = (): UseWorkout => {
-    const { workoutProgram, formRoundInfo, setWorkoutProgram } = useWorkoutContext();
+    const { workoutProgram, formRoundInfo, setWorkoutProgram, setFormRoundInfo } = useWorkoutContext();
     const { breakLength, roundLength, totalRounds } = formRoundInfo;
     const [currentRound, setCurrentRound] = useState(0);
     const [isBreak, setIsBreak] = useState(true);
@@ -62,25 +73,30 @@ export const useWorkout = (): UseWorkout => {
     }, [currentRound, intervalCounter, isBreak, seconds, totalRounds]);
 
     useEffect(() => {
-        const storageData: any = localStorage.getItem('storageData');
+        const storageData = localStorage.getItem('storageData');
 
         if (storageData) {
-            const data = JSON.parse(storageData);
+            const data: StorageData = JSON.parse(storageData);
 
             if ('isPaused' in data) {
                 setIsPaused(data.isPaused);
                 setIsBreak(data.isBreak);
+                setIsWorkoutOver(data.isWorkoutOver);
                 setCurrentRound(data.currentRound);
                 setSeconds(data.seconds);
                 setTotalSeconds(data.totalSeconds);
+                setWorkoutProgram(data.workoutProgram);
+                setFormRoundInfo({ ...formRoundInfo, totalRounds: data.totalRounds });
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         const storageData = {
             isPaused,
             isBreak,
+            isWorkoutOver,
             currentRound,
             seconds,
             totalSeconds

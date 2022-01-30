@@ -20,6 +20,7 @@ export type UseApp = {
     workoutProgram: Array<ApiData>;
     handleRoundInfoChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     handleExerciseChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    setFormRoundInfo: (formRoundInfo: FormRoundInfo) => void;
 };
 
 const defaultRoundInfo = {
@@ -66,6 +67,7 @@ export const useApp = () => {
         workoutProgram,
         setWorkoutProgram,
         handleRoundInfoChange,
-        handleExerciseChange
+        handleExerciseChange,
+        setFormRoundInfo
     };
 };

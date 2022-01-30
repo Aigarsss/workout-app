@@ -59,6 +59,7 @@ const Home: React.FC = () => {
                         value="noExercise"
                         onChange={handleExerciseChange}
                         disabled={formExerciseInfo.length > 0 && !formExerciseInfo.includes('noExercise')}
+                        checked={formExerciseInfo.includes('noExercise')}
                     />
                     <label htmlFor="noExercise">No Exercise</label>
                 </div>
@@ -73,6 +74,7 @@ const Home: React.FC = () => {
                                 value={type.code}
                                 onChange={handleExerciseChange}
                                 disabled={formExerciseInfo.includes('noExercise')}
+                                checked={formExerciseInfo.includes(type.code)}
                             />
                             <label htmlFor={type.code}>{type.label}</label>
                         </div>
