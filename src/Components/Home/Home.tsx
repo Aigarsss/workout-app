@@ -2,11 +2,12 @@ import React from 'react';
 import { useHome } from './useHome';
 import { useWorkoutContext } from '@App/Context/workoutContext';
 import classes from './home.scss';
-import Loader from '../Loader';
+import Loader from '@App/Components/Loader';
+import Select from '@App/Components/Elements/Select';
 
 const Home: React.FC = () => {
     const { handleRoundInfoChange, handleExerciseChange, formRoundInfo, formExerciseInfo } = useWorkoutContext();
-    const { workoutDurations, workoutTypes, isLoading, handleSumbtit } = useHome();
+    const { workoutDurations, workoutTypes, isLoading, handleSumbtit, workoutRounds } = useHome();
 
     if (isLoading) {
         return <Loader />;
@@ -61,6 +62,14 @@ const Home: React.FC = () => {
                     </select>
                 </label>
 
+                <Select
+                    label="Total rounds"
+                    defaultValue={formRoundInfo.totalRounds}
+                    fieldName="totalRounds"
+                    items={workoutRounds}
+                    onChange={handleRoundInfoChange}
+                />
+
                 <fieldset>
                     <legend>Select excercise types</legend>
                     <div>
@@ -78,17 +87,17 @@ const Home: React.FC = () => {
 
                     {workoutTypes.map((type) => {
                         return (
-                            <div key={type.code}>
+                            <div key={type.value}>
                                 <input
                                     type="checkbox"
-                                    id={type.code}
-                                    name={type.code}
-                                    value={type.code}
+                                    id={type.value}
+                                    name={type.value}
+                                    value={type.value}
                                     onChange={handleExerciseChange}
                                     disabled={formExerciseInfo.includes('noExercise')}
-                                    checked={formExerciseInfo.includes(type.code)}
+                                    checked={formExerciseInfo.includes(type.value)}
                                 />
-                                <label htmlFor={type.code}>{type.label}</label>
+                                <label htmlFor={type.value}>{type.label}</label>
                             </div>
                         );
                     })}

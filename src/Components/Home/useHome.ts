@@ -3,30 +3,38 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ApiData, mockData } from '@App/MockApi/mockData';
 
+const availableRounds = Array.from(Array(20).keys()).map((key) => {
+    const val = Number(key + 1);
+    return {
+        label: `${val} ${val === 1 ? 'Round' : 'Rounds'}`,
+        value: val
+    };
+});
+
 const types = [
     {
         label: 'Abs',
-        code: 'abs'
+        value: 'abs'
     },
     {
         label: 'Legs',
-        code: 'legs'
+        value: 'legs'
     },
     {
         label: 'Chest',
-        code: 'chest'
+        value: 'chest'
     },
     {
         label: 'Triceps',
-        code: 'triceps'
+        value: 'triceps'
     },
     {
         label: 'Warm Up',
-        code: 'warmUp'
+        value: 'warmUp'
     },
     {
         label: 'Shoulders',
-        code: 'shoulders'
+        value: 'shoulders'
     }
 ];
 
@@ -90,10 +98,11 @@ const durations = [
 ];
 
 type UseHome = {
-    workoutTypes: Array<{ label: string; code: string }>;
+    workoutTypes: Array<{ label: string; value: string }>;
     workoutDurations: Array<{ label: string; value: string }>;
     isLoading: boolean;
     handleSumbtit: () => void;
+    workoutRounds: Array<{ label: string; value: number }>;
 };
 
 const getRandomArrayObject = (array: Array<ApiData>): ApiData => {
@@ -157,6 +166,7 @@ export const useHome = (): UseHome => {
     return {
         workoutTypes: types,
         workoutDurations: durations,
+        workoutRounds: availableRounds,
         isLoading,
         handleSumbtit
     };

@@ -28,6 +28,10 @@ module.exports = {
                 loader: "source-map-loader"
             },
             {
+                test: /\.svg$/, 
+                loader: 'svg-inline-loader'
+            },
+            {
                 test: /\.s[ca]ss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,

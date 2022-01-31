@@ -1,0 +1,26 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+
+    label {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #BFBFBF;
+        margin-bottom: 8px;
+    }
+
+    select {
+        padding: 10px 12px;
+        outline: none;
+        border-radius: 5px;
+        margin-bottom: 16px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: #000;
+    }
+
+}
