@@ -51,38 +51,42 @@ const Home: React.FC = () => {
                     />
                 </div>
 
-                <legend>Select excercise types</legend>
-                <div>
-                    <input
-                        type="checkbox"
-                        id="noExercise"
-                        name="noExercise"
-                        value="noExercise"
-                        onChange={handleExerciseChange}
-                        disabled={formExerciseInfo.length > 0 && !formExerciseInfo.includes('noExercise')}
-                        checked={formExerciseInfo.includes('noExercise')}
-                    />
-                    <label htmlFor="noExercise">No Exercise</label>
+                <div className={classes.exercises}>
+                    <span className={classes.exercisesTitle}>Select excercise types</span>
+                    <div className={classes.exercisesBody}>
+                        <input
+                            type="checkbox"
+                            id="noExercise"
+                            name="noExercise"
+                            value="noExercise"
+                            onChange={handleExerciseChange}
+                            disabled={formExerciseInfo.length > 0 && !formExerciseInfo.includes('noExercise')}
+                            checked={formExerciseInfo.includes('noExercise')}
+                        />
+                        <label htmlFor="noExercise">No Exercise</label>
+
+                        {workoutTypes.map((type) => {
+                            return (
+                                <div key={type.value}>
+                                    <input
+                                        type="checkbox"
+                                        id={type.value}
+                                        name={type.value}
+                                        value={type.value}
+                                        onChange={handleExerciseChange}
+                                        disabled={formExerciseInfo.includes('noExercise')}
+                                        checked={formExerciseInfo.includes(type.value)}
+                                    />
+                                    <label htmlFor={type.value}>{type.label}</label>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
 
-                {workoutTypes.map((type) => {
-                    return (
-                        <div key={type.value}>
-                            <input
-                                type="checkbox"
-                                id={type.value}
-                                name={type.value}
-                                value={type.value}
-                                onChange={handleExerciseChange}
-                                disabled={formExerciseInfo.includes('noExercise')}
-                                checked={formExerciseInfo.includes(type.value)}
-                            />
-                            <label htmlFor={type.value}>{type.label}</label>
-                        </div>
-                    );
-                })}
-
-                <button disabled={formExerciseInfo.length === 0}>Start</button>
+                <button className={classes.submit} disabled={formExerciseInfo.length === 0}>
+                    Start
+                </button>
             </form>
         </div>
     );
