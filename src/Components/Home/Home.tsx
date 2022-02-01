@@ -7,7 +7,7 @@ import Select from '@App/Components/Elements/Select';
 
 const Home: React.FC = () => {
     const { handleRoundInfoChange, handleExerciseChange, formRoundInfo, formExerciseInfo } = useWorkoutContext();
-    const { workoutDurations, workoutTypes, isLoading, handleSumbtit, workoutRounds } = useHome();
+    const { workoutDurations, workoutTypes, isLoading, handleSumbit, workoutRounds } = useHome();
 
     if (isLoading) {
         return <Loader />;
@@ -23,45 +23,9 @@ const Home: React.FC = () => {
             <form
                 onSubmit={(event: React.SyntheticEvent) => {
                     event.preventDefault();
-                    handleSumbtit();
+                    handleSumbit();
                 }}
             >
-                <label>
-                    <p>Round duration</p>
-                    <select name="roundLength" onChange={handleRoundInfoChange} value={formRoundInfo.roundLength}>
-                        {workoutDurations.map((duration) => (
-                            <option value={duration.value} key={duration.value}>
-                                {duration.label}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-
-                <label>
-                    <p>Break duration</p>
-                    <select name="breakLength" onChange={handleRoundInfoChange} value={formRoundInfo.breakLength}>
-                        {workoutDurations.map((duration) => (
-                            <option value={duration.value} key={duration.value}>
-                                {duration.label}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-
-                <label>
-                    <p>Total rounds</p>
-                    <select name="totalRounds" onChange={handleRoundInfoChange} value={formRoundInfo.totalRounds}>
-                        {Array.from(Array(20).keys()).map((option) => {
-                            const val = option + 1;
-                            return (
-                                <option value={val} key={val}>
-                                    {val}
-                                </option>
-                            );
-                        })}
-                    </select>
-                </label>
-
                 <Select
                     label="Total rounds"
                     defaultValue={formRoundInfo.totalRounds}
@@ -70,38 +34,54 @@ const Home: React.FC = () => {
                     onChange={handleRoundInfoChange}
                 />
 
-                <fieldset>
-                    <legend>Select excercise types</legend>
-                    <div>
-                        <input
-                            type="checkbox"
-                            id="noExercise"
-                            name="noExercise"
-                            value="noExercise"
-                            onChange={handleExerciseChange}
-                            disabled={formExerciseInfo.length > 0 && !formExerciseInfo.includes('noExercise')}
-                            checked={formExerciseInfo.includes('noExercise')}
-                        />
-                        <label htmlFor="noExercise">No Exercise</label>
-                    </div>
+                <div className={classes.durationsContainer}>
+                    <Select
+                        label="Round"
+                        defaultValue={formRoundInfo.roundLength}
+                        fieldName="roundLength"
+                        items={workoutDurations}
+                        onChange={handleRoundInfoChange}
+                    />
+                    <Select
+                        label="Break/Rest"
+                        defaultValue={formRoundInfo.breakLength}
+                        fieldName="breakLength"
+                        items={workoutDurations}
+                        onChange={handleRoundInfoChange}
+                    />
+                </div>
 
-                    {workoutTypes.map((type) => {
-                        return (
-                            <div key={type.value}>
-                                <input
-                                    type="checkbox"
-                                    id={type.value}
-                                    name={type.value}
-                                    value={type.value}
-                                    onChange={handleExerciseChange}
-                                    disabled={formExerciseInfo.includes('noExercise')}
-                                    checked={formExerciseInfo.includes(type.value)}
-                                />
-                                <label htmlFor={type.value}>{type.label}</label>
-                            </div>
-                        );
-                    })}
-                </fieldset>
+                <legend>Select excercise types</legend>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="noExercise"
+                        name="noExercise"
+                        value="noExercise"
+                        onChange={handleExerciseChange}
+                        disabled={formExerciseInfo.length > 0 && !formExerciseInfo.includes('noExercise')}
+                        checked={formExerciseInfo.includes('noExercise')}
+                    />
+                    <label htmlFor="noExercise">No Exercise</label>
+                </div>
+
+                {workoutTypes.map((type) => {
+                    return (
+                        <div key={type.value}>
+                            <input
+                                type="checkbox"
+                                id={type.value}
+                                name={type.value}
+                                value={type.value}
+                                onChange={handleExerciseChange}
+                                disabled={formExerciseInfo.includes('noExercise')}
+                                checked={formExerciseInfo.includes(type.value)}
+                            />
+                            <label htmlFor={type.value}>{type.label}</label>
+                        </div>
+                    );
+                })}
+
                 <button disabled={formExerciseInfo.length === 0}>Start</button>
             </form>
         </div>

@@ -101,7 +101,7 @@ type UseHome = {
     workoutTypes: Array<{ label: string; value: string }>;
     workoutDurations: Array<{ label: string; value: string }>;
     isLoading: boolean;
-    handleSumbtit: () => void;
+    handleSumbit: () => void;
     workoutRounds: Array<{ label: string; value: number }>;
 };
 
@@ -123,7 +123,7 @@ export const useHome = (): UseHome => {
     const navigate = useNavigate();
     const { formExerciseInfo, formRoundInfo, setWorkoutProgram } = useWorkoutContext();
 
-    const handleSumbtit = () => {
+    const handleSumbit = () => {
         setIsLoading(true);
         // FAKE API IMPLEMENTATION. TODO REPLACE
         // Initiate final exercise list, that we will put in context for /workout page
@@ -168,6 +168,6 @@ export const useHome = (): UseHome => {
         workoutDurations: durations,
         workoutRounds: availableRounds,
         isLoading,
-        handleSumbtit
+        handleSumbit
     };
 };

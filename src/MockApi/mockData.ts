@@ -195,5 +195,11 @@ export const mockData: Array<ApiData> = [
         type: 'shoulders',
         name: 'Indian pushup',
         demo: 'www.youtube.com/embed'
+    },
+    // No Exercise
+    {
+        type: 'noExercise',
+        name: 'ಠ_ಠ',
+        demo: 'www.youtube.com/embed'
     }
 ];
