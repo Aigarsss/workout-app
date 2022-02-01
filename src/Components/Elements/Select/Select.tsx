@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import classes from './select.scss';
-// import  CircleChevronDown from './static/circleChevronDown.svg';
+import CircleChevronDown from './static/circleChevronDown.svg';
 
 type SelectProps = {
     label: string;
@@ -21,7 +21,9 @@ const Select: React.FC<SelectProps> = ({ label, items, onChange, defaultValue, f
                     </option>
                 ))}
             </select>
-            <span className={classes.customArrow}>{/* <CircleChevronDown/> */}</span>
+            <span className={classes.customArrow}>
+                <CircleChevronDown />
+            </span>
         </div>
     );
 };

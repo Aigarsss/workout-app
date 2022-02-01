@@ -28,9 +28,9 @@ module.exports = {
                 loader: "source-map-loader"
             },
             {
-                test: /\.svg$/, 
-                loader: 'svg-inline-loader'
-            },
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
+              },
             {
                 test: /\.s[ca]ss$/i,
                 use: [
