@@ -4,6 +4,7 @@ import { useWorkoutContext } from '@App/Context/workoutContext';
 import classes from './home.scss';
 import Loader from '@App/Components/Loader';
 import Select from '@App/Components/Elements/Select';
+import SelectCheckbox from '../Elements/Select/SelectCheckbox';
 
 const Home: React.FC = () => {
     const { handleRoundInfoChange, handleExerciseChange, formRoundInfo, formExerciseInfo } = useWorkoutContext();
@@ -54,39 +55,30 @@ const Home: React.FC = () => {
                 <div className={classes.exercises}>
                     <span className={classes.exercisesTitle}>Select excercise types</span>
                     <div className={classes.exercisesBody}>
-                        <input
-                            type="checkbox"
+                        <SelectCheckbox
                             id="noExercise"
-                            name="noExercise"
-                            value="noExercise"
+                            label="No Exercise"
                             onChange={handleExerciseChange}
-                            disabled={formExerciseInfo.length > 0 && !formExerciseInfo.includes('noExercise')}
                             checked={formExerciseInfo.includes('noExercise')}
+                            disabled={formExerciseInfo.length > 0 && !formExerciseInfo.includes('noExercise')}
                         />
-                        <label htmlFor="noExercise">No Exercise</label>
 
                         {workoutTypes.map((type) => {
                             return (
-                                <div key={type.value}>
-                                    <input
-                                        type="checkbox"
-                                        id={type.value}
-                                        name={type.value}
-                                        value={type.value}
-                                        onChange={handleExerciseChange}
-                                        disabled={formExerciseInfo.includes('noExercise')}
-                                        checked={formExerciseInfo.includes(type.value)}
-                                    />
-                                    <label htmlFor={type.value}>{type.label}</label>
-                                </div>
+                                <SelectCheckbox
+                                    key={type.value}
+                                    id={type.value}
+                                    label={type.label}
+                                    onChange={handleExerciseChange}
+                                    checked={formExerciseInfo.includes(type.value)}
+                                    disabled={formExerciseInfo.includes('noExercise')}
+                                />
                             );
                         })}
                     </div>
                 </div>
 
-                <button className={classes.submit} disabled={formExerciseInfo.length === 0}>
-                    Start
-                </button>
+                {formExerciseInfo.length !== 0 && <button className={classes.submit}>Start</button>}
             </form>
         </div>
     );

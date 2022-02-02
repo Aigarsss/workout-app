@@ -18,6 +18,10 @@
         }
     }
 
+    form {
+        padding-bottom: 50px;
+    }
+
     .durationsContainer {
         display: flex;
         gap: 10px;
@@ -35,6 +39,7 @@
 
         .exercisesBody {
             display: flex;
+            justify-content: space-evenly;
             flex-wrap: wrap;
         }
 
@@ -52,6 +57,7 @@
         border-radius: 50px;
         margin: 30px auto;
         color: #000;
+        border: none;
 
         &:disabled {
             opacity: 40%;

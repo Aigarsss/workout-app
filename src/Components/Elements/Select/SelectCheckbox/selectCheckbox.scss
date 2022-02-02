@@ -1,0 +1,28 @@
+.root {
+    display: flex;
+
+    label {
+        border: 1px solid #fff;
+        border-radius: 5px;
+        padding: 6px 8px;
+        color: #fff;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    input {
+        position: absolute;
+        visibility: hidden;
+    }
+
+    input:disabled + label {
+        border: 1px solid #333333;
+        background-color: #333333;
+    }
+
+    input:checked + label {
+        border: 1px solid #fff;
+        background-color: #fff;
+        color: #000;
+    }
+}
