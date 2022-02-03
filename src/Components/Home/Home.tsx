@@ -4,7 +4,7 @@ import { useWorkoutContext } from '@App/Context/workoutContext';
 import classes from './home.scss';
 import Loader from '@App/Components/Loader';
 import Select from '@App/Components/Elements/Select';
-import SelectCheckbox from '../Elements/Select/SelectCheckbox';
+import SelectCheckbox from '@App/Components/Elements/SelectCheckbox';
 
 const Home: React.FC = () => {
     const { handleRoundInfoChange, handleExerciseChange, formRoundInfo, formExerciseInfo } = useWorkoutContext();

@@ -4,6 +4,7 @@ import { useWorkout } from './useWorkout';
 import classes from './workout.scss';
 import { LogOut, Pause, Play } from 'react-feather';
 import classnames from 'classnames';
+import ProgressBar, { Color } from '@App/Components/Elements/ProgressBar/ProgressBar';
 // import moment from 'moment';
 
 const formattedTime = (time: number) => {
@@ -31,7 +32,9 @@ const Workout: React.FC = () => {
         isWorkoutOver,
         totalRounds,
         totalSeconds,
-        workoutProgram
+        workoutProgram,
+        roundPercentage,
+        totalPercentage
     } = useWorkout();
 
     // Fixes initial empty state or direct access to workout route. Works a bit sketchy, would be good to redo TODO
@@ -56,7 +59,7 @@ const Workout: React.FC = () => {
                 </div>
             </div>
 
-            {isBreak && <span className={classes.next}>NEXT</span>}
+            <span className={classes.next}>{isBreak ? 'NEXT' : ''}</span>
 
             <div className={classes.type}>{type}</div>
 
@@ -68,7 +71,7 @@ const Workout: React.FC = () => {
 
             <div className={classes.timeLeft}>{formattedTime(seconds)}</div>
 
-            <div>------------------</div>
+            <ProgressBar width={roundPercentage} color={isBreak ? Color.Orange : Color.Green} />
 
             <div className={classes.actionContainer}>
                 {isPaused ? (
@@ -94,7 +97,7 @@ const Workout: React.FC = () => {
                 <LogOut />
                 Exit workout
             </Link>
-            <div>------------------</div>
+            <ProgressBar width={totalPercentage} />
             {isWorkoutOver ? endedWorkoutBody : workoutBody}
         </div>
     );

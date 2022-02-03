@@ -76,6 +76,7 @@
             font-size: 30px;    
             color: #fff;
             margin-top: 65px;
+            height: 40px;
         }
 
         .type {
@@ -97,6 +98,8 @@
             font-weight: 600;
             font-size: 30px;
             color: #FFFFFF;
+            text-align: center;
+            padding: 0 30px;
         }
 
         .currentStatus {
@@ -132,6 +135,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-top: 45px;
+            margin-bottom: 45px;
 
             button {
                 display: flex;

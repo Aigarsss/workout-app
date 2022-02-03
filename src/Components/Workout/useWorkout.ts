@@ -13,6 +13,8 @@ type UseWorkout = {
     totalRounds: number;
     totalSeconds: number;
     workoutProgram: Array<ApiData>;
+    roundPercentage: number;
+    totalPercentage: number;
 };
 
 type StorageData = {
@@ -109,6 +111,9 @@ export const useWorkout = (): UseWorkout => {
         }
     });
 
+    const roundPercentage = 50;
+    const totalPercentage = 30;
+
     const pauseTimer = () => {
         clearInterval(intervalCounter);
         setIsPaused(true);
@@ -129,6 +134,8 @@ export const useWorkout = (): UseWorkout => {
         isWorkoutOver,
         totalRounds,
         totalSeconds,
-        workoutProgram
+        workoutProgram,
+        roundPercentage,
+        totalPercentage
     };
 };
