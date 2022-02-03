@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
+import classes from './workout.scss';
+import { LogOut, Pause, Play } from 'react-feather';
+import classnames from 'classnames';
 // import moment from 'moment';
 
 const formattedTime = (time: number) => {
@@ -38,21 +41,47 @@ const Workout: React.FC = () => {
     const { name, type } = workoutProgram[currentRound];
 
     const workoutBody = (
-        <div>
-            {isPaused ? (
-                <button onClick={() => resumeTimer()}>Resume</button>
-            ) : (
-                <button onClick={() => pauseTimer()}>Pause</button>
-            )}
-            <div>Time remaining: {formattedTime(totalSeconds)}</div>
-            <div>
-                Round {currentRound + 1} / {totalRounds}
+        <div className={classes.workoutBody}>
+            <div className={classes.infoContainer}>
+                <div>
+                    <span>Round</span>
+                    <div className={classes.rounds}>
+                        <span>{currentRound + 1} </span>
+                        <span>/ {totalRounds}</span>
+                    </div>
+                </div>
+                <div>
+                    <span>Total time left</span>
+                    <span className={classes.totalTime}>{formattedTime(totalSeconds)}</span>
+                </div>
             </div>
-            {isBreak ? <div>REST</div> : <div>WORK</div>}
-            <div>Time left: {formattedTime(seconds)}</div>
-            {isBreak && 'Next Excercise:'}
-            <div>
-                {name} ({type})
+
+            {isBreak && <span className={classes.next}>NEXT</span>}
+
+            <div className={classes.type}>{type}</div>
+
+            <div className={classes.workoutName}>{name}</div>
+
+            <div className={classnames(classes.currentStatus, { [classes.break]: isBreak })}>
+                {isBreak ? 'REST' : 'WORK'}
+            </div>
+
+            <div className={classes.timeLeft}>{formattedTime(seconds)}</div>
+
+            <div>------------------</div>
+
+            <div className={classes.actionContainer}>
+                {isPaused ? (
+                    <button onClick={() => resumeTimer()}>
+                        <Play />
+                        Resume
+                    </button>
+                ) : (
+                    <button onClick={() => pauseTimer()}>
+                        <Pause />
+                        Pause
+                    </button>
+                )}
             </div>
         </div>
     );
@@ -60,8 +89,12 @@ const Workout: React.FC = () => {
     const endedWorkoutBody = <div>Workout over</div>;
 
     return (
-        <div>
-            <Link to="/">Home</Link>
+        <div className={classes.root}>
+            <Link className={classes.link} to="/">
+                <LogOut />
+                Exit workout
+            </Link>
+            <div>------------------</div>
             {isWorkoutOver ? endedWorkoutBody : workoutBody}
         </div>
     );
