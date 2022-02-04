@@ -151,7 +151,8 @@ export const useHome = (): UseHome => {
         const formData = {
             workoutProgram: program,
             // TODO fix round/break length
-            totalRounds: formRoundInfo.totalRounds
+            formRoundInfo
+            // totalRounds: formRoundInfo.totalRounds
         };
 
         setTimeout(() => {

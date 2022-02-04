@@ -5,7 +5,7 @@ const DEFAULT_ROUND_LENGTH = 60;
 const DEFAULT_BREAK_LENGTH = 15;
 const DEFAULT_TOTAL_ROUNDS = 5;
 
-type FormRoundInfo = {
+export type FormRoundInfo = {
     roundLength: number;
     breakLength: number;
     totalRounds: number;

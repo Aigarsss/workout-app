@@ -1,3 +1,4 @@
+import { FormRoundInfo } from '@App/Context/useApp';
 import { useWorkoutContext } from '@App/Context/workoutContext';
 import { ApiData } from '@App/MockApi/mockData';
 import { useEffect, useState } from 'react';
@@ -24,19 +25,21 @@ type StorageData = {
     currentRound: number;
     seconds: number;
     totalSeconds: number;
-    totalRounds: number;
     workoutProgram: Array<ApiData>;
+    formRoundInfo: FormRoundInfo;
 };
 
 export const useWorkout = (): UseWorkout => {
     const { workoutProgram, formRoundInfo, setWorkoutProgram, setFormRoundInfo } = useWorkoutContext();
     const { breakLength, roundLength, totalRounds } = formRoundInfo;
+    // Here we compensate for the time going down to 0 and showing it. A bit hacky, but works
+    const initialTotalTime = totalRounds * roundLength + totalRounds * breakLength + totalRounds * 2 - 1;
     const [currentRound, setCurrentRound] = useState(0);
     const [isBreak, setIsBreak] = useState(true);
     const [seconds, setSeconds] = useState(breakLength);
     const [isPaused, setIsPaused] = useState(false);
     const [isWorkoutOver, setIsWorkoutOver] = useState(false);
-    const [totalSeconds, setTotalSeconds] = useState(totalRounds * roundLength + totalRounds * breakLength);
+    const [totalSeconds, setTotalSeconds] = useState(initialTotalTime);
 
     const intervalCounter = setInterval(() => {
         // Check if timer needs to be stopped
@@ -88,7 +91,7 @@ export const useWorkout = (): UseWorkout => {
                 setSeconds(data.seconds);
                 setTotalSeconds(data.totalSeconds);
                 setWorkoutProgram(data.workoutProgram);
-                setFormRoundInfo({ ...formRoundInfo, totalRounds: Number(data.totalRounds) });
+                setFormRoundInfo(data.formRoundInfo);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,8 +115,7 @@ export const useWorkout = (): UseWorkout => {
     });
 
     const roundPercentage = isBreak ? (1 - seconds / breakLength) * 100 : (1 - seconds / roundLength) * 100;
-    
-    const totalPercentage = 30;
+    const totalPercentage = (1 - totalSeconds / initialTotalTime) * 100;
 
     const pauseTimer = () => {
         clearInterval(intervalCounter);
