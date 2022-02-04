@@ -45,7 +45,18 @@ module.exports = {
                             },
                         }
                     }, 
-                    { loader: "sass-loader" },
+                    { 
+                        loader: "sass-loader",
+                        options: {
+                            additionalData: `
+                                @import "_vars";
+                                @import "_mixins";
+                        `,
+                            sassOptions: {
+                                includePaths: ['src/scss/global']
+                            }
+                    }
+                    },
                     {
                         loader: 'postcss-loader',
                         options: {
