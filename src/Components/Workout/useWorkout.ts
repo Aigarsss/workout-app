@@ -41,10 +41,10 @@ export const useWorkout = (): UseWorkout => {
     const intervalCounter = setInterval(() => {
         // Check if timer needs to be stopped
         if (currentRound < totalRounds && !isPaused && !isWorkoutOver) {
-            if (seconds > 1) {
+            if (seconds >= 1) {
                 setSeconds(seconds - 1);
             }
-            if (seconds === 1) {
+            if (seconds === 0) {
                 if (isBreak) {
                     setSeconds(roundLength);
                 } else {
@@ -88,7 +88,7 @@ export const useWorkout = (): UseWorkout => {
                 setSeconds(data.seconds);
                 setTotalSeconds(data.totalSeconds);
                 setWorkoutProgram(data.workoutProgram);
-                setFormRoundInfo({ ...formRoundInfo, totalRounds: data.totalRounds });
+                setFormRoundInfo({ ...formRoundInfo, totalRounds: Number(data.totalRounds) });
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,7 +111,8 @@ export const useWorkout = (): UseWorkout => {
         }
     });
 
-    const roundPercentage = 50;
+    const roundPercentage = isBreak ? (1 - seconds / breakLength) * 100 : (1 - seconds / roundLength) * 100;
+    
     const totalPercentage = 30;
 
     const pauseTimer = () => {

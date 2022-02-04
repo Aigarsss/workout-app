@@ -150,6 +150,7 @@ export const useHome = (): UseHome => {
 
         const formData = {
             workoutProgram: program,
+            // TODO fix round/break length
             totalRounds: formRoundInfo.totalRounds
         };
 
@@ -158,6 +159,7 @@ export const useHome = (): UseHome => {
             // Clear storage
             localStorage.removeItem('storageData');
             // Set new storage
+            // TODO fix round/break length
             localStorage.setItem('storageData', JSON.stringify(formData));
             navigate('/workout');
         }, 1200);
