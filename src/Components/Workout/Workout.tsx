@@ -97,9 +97,8 @@ const Workout: React.FC = () => {
         <div className={classes.workoutEnded}>
             <div className={classes.endedTitle}>Nicely done!</div>
             <Link className={classes.endedLink} to="/">
-                Finish workout
+                <Lottie options={defaultLottieOptions} width="100%" />
             </Link>
-            <Lottie options={defaultLottieOptions} width='100%' />
         </div>
     );
 

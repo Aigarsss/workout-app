@@ -1,6 +1,12 @@
 // Mixins
 // -----------------------------------------------------------------------------
 
+@mixin screenSuperSmall {
+    @media (max-width: calc(#{$breakpointsSuperSmall} - 1px)) {
+        @content;
+    }
+}
+
 @mixin screenMedium {
     @media (max-width: calc(#{$breakpointsLarge} - 1px)) {
         @content;

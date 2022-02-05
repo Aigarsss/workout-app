@@ -1,18 +1,19 @@
 // Breakpoints
 // -----------------------------------------------------------------------------
 $breakpointsLarge: 1024px;
+$breakpointsSuperSmall: 340px;
 
 // Sizing
 // -----------------------------------------------------------------------------
-$maxPageWidth: 1332px;
-$pageWidth: 88.8%;
-$mobilePageWidth: 91.67%;
+// $maxPageWidth: 1332px;
+// $pageWidth: 88.8%;
+// $mobilePageWidth: 91.67%;
 
 // Z-Index
 // -----------------------------------------------------------------------------
-$zHeader: 5;
-$zMain: 1;
-$zFooter: 3;
+// $zHeader: 5;
+// $zMain: 1;
+// $zFooter: 3;
 
 // Colors
 // -----------------------------------------------------------------------------
@@ -26,25 +27,25 @@ $orange: #FFA059;
 // Animation
 // -----------------------------------------------------------------------------
 
-@keyframes wiggle {
-    10%,
-    90% {
-        transform: rotate(-5deg);
-    }
+// @keyframes wiggle {
+//     10%,
+//     90% {
+//         transform: rotate(-5deg);
+//     }
 
-    20%,
-    80% {
-        transform: rotate(5deg);
-    }
+//     20%,
+//     80% {
+//         transform: rotate(5deg);
+//     }
 
-    30%,
-    50%,
-    70% {
-        transform: rotate(-10deg);
-    }
+//     30%,
+//     50%,
+//     70% {
+//         transform: rotate(-10deg);
+//     }
 
-    40%,
-    60% {
-        transform: rotate(10deg);
-    }
-}
+//     40%,
+//     60% {
+//         transform: rotate(10deg);
+//     }
+// }

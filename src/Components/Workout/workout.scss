@@ -22,11 +22,15 @@
         width: 100%;
 
         .infoContainer {
-            margin-top: 50px;
-            padding: 0 70px;
+            margin-top: 24px;
+            padding: 0 30px;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+
+            @include screenSuperSmall {
+                margin-top: 5px;
+            }
 
             & > div {
                 display: flex;
@@ -55,7 +59,7 @@
                     font-weight: 600;
                     font-size: 50px;
                     color: $white;
-                    line-height: 0.8;
+                    line-height: 0.87;
                     margin-right: 5px;
                 }
 
@@ -76,6 +80,13 @@
             font-size: 30px;    
             color: $white;
             height: 40px;
+            margin-top: 24px;
+
+            @include screenSuperSmall {
+                font-size: 16px;    
+                margin-top: 5px;
+                height: 16px;
+            }
         }
 
         .type {
@@ -87,6 +98,10 @@
             font-size: 20px;
             font-weight: 600;
             color: $gray;
+
+            @include screenSuperSmall {
+                margin-top: 5px;
+            }
         }
 
         .workoutName {
@@ -99,6 +114,11 @@
             color: $white;
             text-align: center;
             padding: 0 30px;
+
+            @include screenSuperSmall {
+                padding: 0 5px;
+                font-size: 25px;
+            }
         }
 
         .currentStatus {
@@ -111,6 +131,10 @@
             font-size: 20px;
             color: $green;
             transition: all 1.5s;
+
+            @include screenSuperSmall {
+                margin-top: 10px;
+            }
         }
 
         .break {
@@ -128,6 +152,10 @@
             text-align: center;
             color: $white;
             margin-bottom: 32px;
+
+            @include screenSuperSmall {
+                margin-bottom: 10px;
+            }
         }
 
         .actionContainer {
