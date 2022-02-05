@@ -48,9 +48,15 @@ const Workout: React.FC = () => {
         totalPercentage
     } = useWorkout();
 
-    // Fixes initial empty state or direct access to workout route. Works a bit sketchy, would be good to redo TODO
+    // TODO Fixes initial empty state or direct access to workout route. Works a bit sketchy, would be good to redo
     if (workoutProgram.length === 0) {
-        return <Link to="/">Home</Link>;
+        return (
+            <div className={classes.root}>
+                <Link className={classes.link} to="/">
+                    Home
+                </Link>
+            </div>
+        );
     }
     const { name, type } = workoutProgram[currentRound];
 
@@ -75,21 +81,22 @@ const Workout: React.FC = () => {
             <div className={classnames(classes.currentStatus, { [classes.break]: isBreak })}>
                 {isBreak && currentRound === 0 ? 'GET READY' : isBreak ? 'REST' : 'WORK'}
             </div>
-            <div className={classes.timeLeft}>{formattedTime(seconds)}</div>
-            <ProgressBar width={roundPercentage} color={isBreak ? Color.Orange : Color.Green} />
-            <div className={classes.actionContainer}>
-                {isPaused ? (
-                    <button onClick={() => resumeTimer()}>
-                        <Play />
-                        Resume
-                    </button>
-                ) : (
-                    <button onClick={() => pauseTimer()}>
-                        <Pause />
-                        Pause
-                    </button>
-                )}
+            <div className={classes.timeLeft}>
+                <div className={classes.time}>{formattedTime(seconds)}</div>
+
+                <div className={classes.actionContainer}>
+                    {isPaused ? (
+                        <button onClick={() => resumeTimer()}>
+                            <Play />
+                        </button>
+                    ) : (
+                        <button onClick={() => pauseTimer()}>
+                            <Pause />
+                        </button>
+                    )}
+                </div>
             </div>
+            <ProgressBar width={roundPercentage} color={isBreak ? Color.Orange : Color.Green} />
         </div>
     );
 

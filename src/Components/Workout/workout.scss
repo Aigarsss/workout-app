@@ -20,6 +20,7 @@
 
     .workoutBody {
         width: 100%;
+        overflow-x: hidden;
 
         .infoContainer {
             margin-top: 24px;
@@ -146,41 +147,43 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            font-size: 70px;
-            line-height: 85px;
-            text-align: center;
-            color: $white;
             margin-bottom: 32px;
+            position: relative;
+            left: 20px;
 
             @include screenSuperSmall {
                 margin-bottom: 10px;
             }
+
+            .time {
+                font-weight: 600;
+                font-size: 70px;
+                line-height: 85px;
+                color: $white;
+                width: 200px;
+            }
+
         }
 
         .actionContainer {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 45px;
-            margin-bottom: 45px;
+            width: 40px;
+            margin-left: 10px;
 
             button {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 color: $gray;
-                font-weight: 500;
-                font-size: 30px;
                 cursor: pointer;
-                width: 200px;
                 outline: none;
+                border: 1px solid $gray;
+                border-radius: 50%;
+                height: 40px;
+                width: 40px;
                 background-color: transparent;
-                border: 0;
-
-                svg {
-                    margin-right: 3px;
-                }
             }
         }
     }

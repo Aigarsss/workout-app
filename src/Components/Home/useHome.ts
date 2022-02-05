@@ -154,6 +154,7 @@ export const useHome = (): UseHome => {
         };
 
         setTimeout(() => {
+            window.scrollTo(0, 0);
             setIsLoading(false);
             // Clear storage
             localStorage.removeItem('storageData');
