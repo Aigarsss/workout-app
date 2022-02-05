@@ -155,6 +155,23 @@
                 }
             }
         }
+    }
 
+    .workoutEnded {
+        @include flex;
+        flex-direction: column;
+
+        .endedTitle {
+            margin-top: 20px;
+            font-size: 30px;
+            color: $green;
+            font-weight: 600;
+        }
+
+        .endedLink {
+            margin-top: 10px;
+            color: $white;
+            text-decoration: none;
+        }
     }
 }

@@ -88,7 +88,7 @@ export const useWorkout = (): UseWorkout => {
                 setIsBreak(data.isBreak);
                 setIsWorkoutOver(data.isWorkoutOver);
                 setCurrentRound(data.currentRound);
-                setSeconds(data.seconds);
+                setSeconds(Number(data.seconds));
                 setTotalSeconds(data.totalSeconds);
                 setWorkoutProgram(data.workoutProgram);
                 setFormRoundInfo(data.formRoundInfo);

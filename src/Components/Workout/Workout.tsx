@@ -5,6 +5,8 @@ import classes from './workout.scss';
 import { LogOut, Pause, Play } from 'react-feather';
 import classnames from 'classnames';
 import ProgressBar, { Color } from '@App/Components/Elements/ProgressBar/ProgressBar';
+import Lottie from 'react-lottie';
+import lottieDone from './static/lottie-done.json';
 // import moment from 'moment';
 
 const formattedTime = (time: number) => {
@@ -19,6 +21,15 @@ const formattedTime = (time: number) => {
     const secWithZero = sec < 10 ? `0${sec}` : sec;
 
     return `${minWithZero}:${secWithZero}`;
+};
+
+const defaultLottieOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: lottieDone,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+    }
 };
 
 const Workout: React.FC = () => {
@@ -82,7 +93,15 @@ const Workout: React.FC = () => {
         </div>
     );
 
-    const endedWorkoutBody = <div>Workout over</div>;
+    const endedWorkoutBody = (
+        <div className={classes.workoutEnded}>
+            <div className={classes.endedTitle}>Nicely done!</div>
+            <Link className={classes.endedLink} to="/">
+                Finish workout
+            </Link>
+            <Lottie options={defaultLottieOptions} width='100%' />
+        </div>
+    );
 
     return (
         <div className={classes.root}>
