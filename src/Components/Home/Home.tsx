@@ -78,7 +78,9 @@ const Home: React.FC = () => {
                     </div>
                 </div>
 
-                {formExerciseInfo.length !== 0 && <button className={classes.submit}>Start</button>}
+                <button className={classes.submit} disabled={formExerciseInfo.length === 0}>
+                    Start
+                </button>
             </form>
         </div>
     );

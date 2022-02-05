@@ -139,6 +139,6 @@ export const useWorkout = (): UseWorkout => {
         totalSeconds,
         workoutProgram,
         roundPercentage,
-        totalPercentage
+        totalPercentage: totalPercentage > 100 ? 100 : totalPercentage
     };
 };

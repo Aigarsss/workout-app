@@ -58,21 +58,14 @@ const Workout: React.FC = () => {
                     <span className={classes.totalTime}>{formattedTime(totalSeconds)}</span>
                 </div>
             </div>
-
             <span className={classes.next}>{isBreak ? 'NEXT' : ''}</span>
-
             <div className={classes.type}>{type}</div>
-
             <div className={classes.workoutName}>{name}</div>
-
             <div className={classnames(classes.currentStatus, { [classes.break]: isBreak })}>
-                {isBreak ? 'REST' : 'WORK'}
+                {isBreak && currentRound === 0 ? 'GET READY' : isBreak ? 'REST' : 'WORK'}
             </div>
-
             <div className={classes.timeLeft}>{formattedTime(seconds)}</div>
-
             <ProgressBar width={roundPercentage} color={isBreak ? Color.Orange : Color.Green} />
-
             <div className={classes.actionContainer}>
                 {isPaused ? (
                     <button onClick={() => resumeTimer()}>
