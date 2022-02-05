@@ -40,59 +40,59 @@ const types = [
 
 const durations = [
     {
-        label: '2s',
+        label: '2 sec',
         value: '2'
     },
     {
-        label: '5s',
+        label: '5 sec',
         value: '5'
     },
     {
-        label: '10s',
+        label: '10 sec',
         value: '10'
     },
     {
-        label: '15s',
+        label: '15 sec',
         value: '15'
     },
     {
-        label: '30s',
+        label: '30 sec',
         value: '30'
     },
     {
-        label: '45s',
+        label: '45 sec',
         value: '45'
     },
     {
-        label: '1m',
+        label: '1 min',
         value: '60'
     },
     {
-        label: '1.5m',
+        label: '1.5 min',
         value: '90'
     },
     {
-        label: '2m',
+        label: '2 min',
         value: '120'
     },
     {
-        label: '3m',
+        label: '3 min',
         value: '180'
     },
     {
-        label: '4m',
+        label: '4 min',
         value: '240'
     },
     {
-        label: '5m',
+        label: '5 min',
         value: '300'
     },
     {
-        label: '10m',
+        label: '10 min',
         value: '600'
     },
     {
-        label: '20m',
+        label: '20 min',
         value: '1200'
     }
 ];
@@ -150,9 +150,7 @@ export const useHome = (): UseHome => {
 
         const formData = {
             workoutProgram: program,
-            // TODO fix round/break length
             formRoundInfo
-            // totalRounds: formRoundInfo.totalRounds
         };
 
         setTimeout(() => {
@@ -160,7 +158,6 @@ export const useHome = (): UseHome => {
             // Clear storage
             localStorage.removeItem('storageData');
             // Set new storage
-            // TODO fix round/break length
             localStorage.setItem('storageData', JSON.stringify(formData));
             navigate('/workout');
         }, 1200);
