@@ -4,6 +4,11 @@
 - React with ts and webpack: https://muhammad-ata.medium.com/how-to-setup-react-typescript-project-from-scratch-with-webpack-fa45a90c7a4d
 
 
+## Manifest
+
+- https://developer.mozilla.org/en-US/docs/Web/Manifest
+- https://dev.to/chuksjoe/how-to-transform-a-react-app-built-on-webpack-to-pwa-glb
+
 ## Loading svgs in ts
 
 - https://www.pluralsight.com/guides/how-to-load-svg-with-react-and-webpack
