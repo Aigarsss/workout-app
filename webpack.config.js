@@ -2,13 +2,16 @@ const path = require("path");
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.tsx",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "bundle.js",
-        publicPath: '/'
+        publicPath: '',
+        clean: true
+        // assetModuleFilename: 'static/[hash][ext][query]'
     },
     resolve: {
         extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
@@ -30,7 +33,11 @@ module.exports = {
             {
                 test: /\.svg$/,
                 use: ['@svgr/webpack'],
-              },
+            },
+            // {
+            //     test: /\.(svg|png|jp?g|gif)$/i,
+            //     type: 'asset/resource'
+            // },
             {
                 test: /\.s[ca]ss$/i,
                 use: [
@@ -72,12 +79,20 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         // static: path.join(__dirname, "src/assets")
-      },
+    },
     plugins: [
         new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "src", "index.html"),
-            favicon: path.resolve(__dirname, "src", "assets", "favicon.svg")
-        })
+            // favicon: path.resolve(__dirname, "src", "assets", "favicon.svg")
+        }),
+        new CopyPlugin({
+            patterns: [
+                { 
+                    from: path.resolve(__dirname, 'src', 'assets'), 
+                    to: 'assets'
+                }
+            ],
+        }),
     ]
 }
