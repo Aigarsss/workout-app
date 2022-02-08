@@ -1,20 +1,33 @@
 {
-    "short_name": "Football Update",
-    "name": "Live Football Score Update",
+    "short_name": "Workout App",
+    "name": "Random Workout App",
+    "description": "A small app to generate a short and random workout with set intervals and breaks",
     "icons": [
         {
-            "src": "../images/favicon.gif",
-            "sizes": "64x64",
-            "type": "image/gif"
+        "src": "192.png",
+        "sizes": "192x192",
+        "type": "image/png"
         },
         {
-            "src": "../images/football-logo.png",
-            "type": "image/png",
-            "sizes": "256x256"
+        "src": "512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+        },
+        {
+        "purpose": "maskable",
+        "src": "192_maskable.png",
+        "sizes": "192x192",
+        "type": "image/png"
+        },
+        {
+        "purpose": "maskable",
+        "src": "512_maskable.png",
+        "sizes": "512x512",
+        "type": "image/png"
         }
     ],
     "start_url": "",
     "display": "standalone",
-    "theme_color": "#27ae60",
-    "background_color": "#fff"
+    "theme_color": "#0e0f10",
+    "background_color": "#333333"
 }
