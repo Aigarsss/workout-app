@@ -30,6 +30,11 @@
 
 - https://felixgerschau.com/how-to-make-your-react-app-a-progressive-web-app-pwa/
 
+## Generate apple icons for installed app
+
+- https://felixgerschau.com/how-to-make-your-react-app-a-progressive-web-app-pwa/
+- pwa-asset-generator
+
 ## To install locally
 
 > yarn install
