@@ -25,6 +25,11 @@
     >  "typescript",
     >  "typescriptreact"
     >]
+
+## Service workers/PWA
+
+- https://felixgerschau.com/how-to-make-your-react-app-a-progressive-web-app-pwa/
+
 ## To install locally
 
 > yarn install
