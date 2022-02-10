@@ -27,6 +27,10 @@ module.exports = {
                 loader: "ts-loader"
             },
             {
+                test: /\.mp3$/,
+                loader: 'file-loader',
+            },
+            {
                 enforce: "pre",
                 test: /\.js$/,
                 loader: "source-map-loader"

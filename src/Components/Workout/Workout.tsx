@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import ProgressBar, { Color } from '@App/Components/Elements/ProgressBar/ProgressBar';
 import Lottie from 'react-lottie';
 import lottieDone from './static/lottie-done.json';
+import roundEnded from './static/roundEndBell.mp3';
 // import moment from 'moment';
 
 const formattedTime = (time: number) => {
@@ -59,6 +60,17 @@ const Workout: React.FC = () => {
         );
     }
     const { name, type } = workoutProgram[currentRound];
+    const audio = new Audio(roundEnded);
+
+    const toggleRoundEndSound = () => {
+        audio.play();
+    };
+
+    console.log(!isBreak && seconds == 0);
+
+    if (!isBreak && seconds == 0) {
+        // toggleRoundEndSound();
+    }
 
     const workoutBody = (
         <div className={classes.workoutBody}>
@@ -83,7 +95,6 @@ const Workout: React.FC = () => {
             </div>
             <div className={classes.timeLeft}>
                 <div className={classes.time}>{formattedTime(seconds)}</div>
-
                 <div className={classes.actionContainer}>
                     {isPaused ? (
                         <button onClick={() => resumeTimer()}>

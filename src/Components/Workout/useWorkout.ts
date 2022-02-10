@@ -1,7 +1,7 @@
 import { FormRoundInfo } from '@App/Context/useApp';
 import { useWorkoutContext } from '@App/Context/workoutContext';
 import { ApiData } from '@App/MockApi/mockData';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type UseWorkout = {
     isPaused: boolean;
@@ -114,18 +114,22 @@ export const useWorkout = (): UseWorkout => {
         }
     });
 
-    const roundPercentage = isBreak ? (1 - seconds / breakLength) * 100 : (1 - seconds / roundLength) * 100;
-    const totalPercentage = (1 - totalSeconds / initialTotalTime) * 100;
+    const roundPercentage = useMemo(() => {
+        return isBreak ? (1 - seconds / breakLength) * 100 : (1 - seconds / roundLength) * 100;
+    }, [breakLength, isBreak, roundLength, seconds]);
+    const totalPercentage = useMemo(() => {
+        return (1 - totalSeconds / initialTotalTime) * 100;
+    }, [initialTotalTime, totalSeconds]);
 
-    const pauseTimer = () => {
+    const pauseTimer = useCallback(() => {
         clearInterval(intervalCounter);
         setIsPaused(true);
-    };
+    }, [intervalCounter]);
 
-    const resumeTimer = () => {
+    const resumeTimer = useCallback(() => {
         setSeconds(seconds);
         setIsPaused(false);
-    };
+    }, [seconds]);
 
     return {
         isPaused,
