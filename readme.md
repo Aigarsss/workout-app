@@ -33,7 +33,7 @@
 ## Generate apple icons for installed app
 
 - https://felixgerschau.com/how-to-make-your-react-app-a-progressive-web-app-pwa/
-- pwa-asset-generator
+- yarn pwa-asset-generator src/assets/512.png src/assets/appleIcons --background black --splash-only --quality 80
 
 ## To install locally
 
