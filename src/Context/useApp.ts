@@ -1,5 +1,5 @@
 import { ApiData } from '@App/MockApi/mockData';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const DEFAULT_ROUND_LENGTH = 60;
 const DEFAULT_BREAK_LENGTH = 15;
@@ -45,21 +45,24 @@ export const useApp = () => {
     };
 
     // For checkboxes
-    const handleExerciseChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const isChecked = event.target.checked;
-        const name = event.target.name;
+    const handleExerciseChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const isChecked = event.target.checked;
+            const name = event.target.name;
 
-        if (isChecked) {
-            if (!formExerciseInfo.includes(name)) {
-                setFormExerciseInfo([...formExerciseInfo, name]);
+            if (isChecked) {
+                if (!formExerciseInfo.includes(name)) {
+                    setFormExerciseInfo([...formExerciseInfo, name]);
+                }
+            } else {
+                if (formExerciseInfo.includes(name)) {
+                    const newList = formExerciseInfo.filter((item) => item !== name);
+                    setFormExerciseInfo(newList);
+                }
             }
-        } else {
-            if (formExerciseInfo.includes(name)) {
-                const newList = formExerciseInfo.filter((item) => item !== name);
-                setFormExerciseInfo(newList);
-            }
-        }
-    };
+        },
+        [formExerciseInfo]
+    );
 
     return {
         formRoundInfo,

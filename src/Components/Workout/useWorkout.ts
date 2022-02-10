@@ -50,6 +50,7 @@ export const useWorkout = (): UseWorkout => {
             if (seconds === 0) {
                 if (isBreak) {
                     setSeconds(roundLength);
+                    setIsBreak(false);
                 } else {
                     // If final round, set workout over, else increment round
                     if (currentRound == totalRounds - 1) {
@@ -58,14 +59,11 @@ export const useWorkout = (): UseWorkout => {
                         setCurrentRound(currentRound + 1);
                     }
                     setSeconds(breakLength);
+                    setIsBreak(true);
                 }
-
-                // Switch from break to round and the other way around
-                setIsBreak(!isBreak);
             }
             setTotalSeconds((prevVal) => prevVal - 1);
         }
-
         clearInterval(intervalCounter);
     }, 1000);
 
@@ -94,8 +92,7 @@ export const useWorkout = (): UseWorkout => {
                 setFormRoundInfo(data.formRoundInfo);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [setFormRoundInfo, setWorkoutProgram]);
 
     useEffect(() => {
         const storageData = {
@@ -117,6 +114,7 @@ export const useWorkout = (): UseWorkout => {
     const roundPercentage = useMemo(() => {
         return isBreak ? (1 - seconds / breakLength) * 100 : (1 - seconds / roundLength) * 100;
     }, [breakLength, isBreak, roundLength, seconds]);
+
     const totalPercentage = useMemo(() => {
         return (1 - totalSeconds / initialTotalTime) * 100;
     }, [initialTotalTime, totalSeconds]);

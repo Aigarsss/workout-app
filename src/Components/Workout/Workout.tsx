@@ -63,13 +63,13 @@ const Workout: React.FC = () => {
     const audio = new Audio(roundEnded);
 
     const toggleRoundEndSound = () => {
-        audio.play();
+        console.log('sound');
+        // TODO fix double sound on round end. For now its fine, but im not sure what causes the double render.
+        // audio.play();
     };
 
-    console.log(!isBreak && seconds == 0);
-
-    if (!isBreak && seconds == 0) {
-        // toggleRoundEndSound();
+    if (seconds === 0) {
+        toggleRoundEndSound();
     }
 
     const workoutBody = (
