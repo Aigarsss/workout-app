@@ -8,6 +8,7 @@ import ProgressBar, { Color } from '@App/Components/Elements/ProgressBar/Progres
 import Lottie from 'react-lottie';
 import lottieDone from './static/lottie-done.json';
 import roundEnded from './static/roundEndBell.mp3';
+import tick from './static/tenSecondTick.mp3';
 // import moment from 'moment';
 
 const formattedTime = (time: number) => {
@@ -60,16 +61,29 @@ const Workout: React.FC = () => {
         );
     }
     const { name, type } = workoutProgram[currentRound];
-    const audio = new Audio(roundEnded);
+    const roundEndedAudio = new Audio(roundEnded);
+    const tickingAudio = new Audio(tick);
+    const playSounds = false;
 
-    const toggleRoundEndSound = () => {
-        console.log('sound');
+    const playSound = (sound: string) => {
         // TODO fix double sound on round end. For now its fine, but im not sure what causes the double render.
-        // audio.play();
+        if (playSounds) {
+            if (sound === 'bell') {
+                roundEndedAudio.play();
+            }
+
+            if (sound === 'tick') {
+                tickingAudio.play();
+            }
+        }
     };
 
     if (seconds === 0) {
-        toggleRoundEndSound();
+        playSound('bell');
+    }
+
+    if (seconds === 9 && !isBreak) {
+        playSound('tick');
     }
 
     const workoutBody = (
