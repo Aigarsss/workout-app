@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
 import classes from './workout.scss';
-import { LogOut, Pause, Play } from 'react-feather';
+import { LogOut, Pause, Play, Volume2, VolumeX } from 'react-feather';
 import classnames from 'classnames';
 import ProgressBar, { Color } from '@App/Components/Elements/ProgressBar/ProgressBar';
 import Lottie from 'react-lottie';
@@ -35,6 +35,7 @@ const defaultLottieOptions = {
 };
 
 const Workout: React.FC = () => {
+    const [soundMuted, setSoundMuted] = useState(false);
     const {
         isPaused,
         isBreak,
@@ -63,11 +64,10 @@ const Workout: React.FC = () => {
     const { name, type } = workoutProgram[currentRound];
     const roundEndedAudio = new Audio(roundEnded);
     const tickingAudio = new Audio(tick);
-    const playSounds = false;
 
     const playSound = (sound: string) => {
         // TODO fix double sound on round end. For now its fine, but im not sure what causes the double render.
-        if (playSounds) {
+        if (!soundMuted) {
             if (sound === 'bell') {
                 roundEndedAudio.play();
             }
@@ -136,10 +136,15 @@ const Workout: React.FC = () => {
 
     return (
         <div className={classes.root}>
-            <Link className={classes.link} to="/">
-                <LogOut />
-                Exit workout
-            </Link>
+            <div className={classes.header}>
+                <Link className={classes.link} to="/">
+                    <LogOut />
+                    Exit workout
+                </Link>
+                <span className={classes.soundState} onClick={() => setSoundMuted(!soundMuted)}>
+                    {soundMuted ? <VolumeX /> : <Volume2 />}
+                </span>
+            </div>
             <ProgressBar width={totalPercentage} />
             {isWorkoutOver ? endedWorkoutBody : workoutBody}
         </div>
