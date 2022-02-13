@@ -16,6 +16,8 @@ type UseWorkout = {
     workoutProgram: Array<ApiData>;
     roundPercentage: number;
     totalPercentage: number;
+    soundMuted: boolean;
+    setSoundMuted: (soundMuted: boolean) => void;
 };
 
 type StorageData = {
@@ -27,6 +29,7 @@ type StorageData = {
     totalSeconds: number;
     workoutProgram: Array<ApiData>;
     formRoundInfo: FormRoundInfo;
+    soundMuted: boolean;
 };
 
 export const useWorkout = (): UseWorkout => {
@@ -40,6 +43,7 @@ export const useWorkout = (): UseWorkout => {
     const [isPaused, setIsPaused] = useState(false);
     const [isWorkoutOver, setIsWorkoutOver] = useState(false);
     const [totalSeconds, setTotalSeconds] = useState(initialTotalTime);
+    const [soundMuted, setSoundMuted] = useState(false);
 
     const intervalCounter = setInterval(() => {
         // Check if timer needs to be stopped
@@ -90,6 +94,7 @@ export const useWorkout = (): UseWorkout => {
                 setTotalSeconds(data.totalSeconds);
                 setWorkoutProgram(data.workoutProgram);
                 setFormRoundInfo(data.formRoundInfo);
+                setSoundMuted(data.soundMuted);
             }
         }
     }, [setFormRoundInfo, setWorkoutProgram]);
@@ -101,7 +106,8 @@ export const useWorkout = (): UseWorkout => {
             isWorkoutOver,
             currentRound,
             seconds,
-            totalSeconds
+            totalSeconds,
+            soundMuted
         };
 
         const existingStorage = localStorage.getItem('storageData');
@@ -141,6 +147,8 @@ export const useWorkout = (): UseWorkout => {
         totalSeconds,
         workoutProgram,
         roundPercentage,
-        totalPercentage: totalPercentage > 100 ? 100 : totalPercentage
+        totalPercentage: totalPercentage > 100 ? 100 : totalPercentage,
+        soundMuted,
+        setSoundMuted
     };
 };

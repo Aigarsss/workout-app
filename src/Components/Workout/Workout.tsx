@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
 import classes from './workout.scss';
@@ -35,7 +35,6 @@ const defaultLottieOptions = {
 };
 
 const Workout: React.FC = () => {
-    const [soundMuted, setSoundMuted] = useState(false);
     const {
         isPaused,
         isBreak,
@@ -48,7 +47,9 @@ const Workout: React.FC = () => {
         totalSeconds,
         workoutProgram,
         roundPercentage,
-        totalPercentage
+        totalPercentage,
+        soundMuted, 
+        setSoundMuted
     } = useWorkout();
 
     // TODO Fixes initial empty state or direct access to workout route. Works a bit sketchy, would be good to redo
