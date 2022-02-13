@@ -35,6 +35,10 @@
 - https://felixgerschau.com/how-to-make-your-react-app-a-progressive-web-app-pwa/
 - yarn pwa-asset-generator src/assets/512.png src/assets/appleIcons --background black --splash-only --quality 80
 
+
+## Enable playing sounds on mobile
+
+- https://curtisrobinson.medium.com/how-to-auto-play-audio-in-safari-with-javascript-21d50b0a2765
 ## To install locally
 
 > yarn install
