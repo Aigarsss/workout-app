@@ -5,11 +5,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type UseWorkout = {
     isPaused: boolean;
+    setIsPaused: (isPaused: boolean) => void;
     isBreak: boolean;
     currentRound: number;
     seconds: number;
-    resumeTimer: () => void;
-    pauseTimer: () => void;
     isWorkoutOver: boolean;
     totalRounds: number;
     totalSeconds: number;
@@ -125,23 +124,12 @@ export const useWorkout = (): UseWorkout => {
         return (1 - totalSeconds / initialTotalTime) * 100;
     }, [initialTotalTime, totalSeconds]);
 
-    const pauseTimer = useCallback(() => {
-        clearInterval(intervalCounter);
-        setIsPaused(true);
-    }, [intervalCounter]);
-
-    const resumeTimer = useCallback(() => {
-        setSeconds(seconds);
-        setIsPaused(false);
-    }, [seconds]);
-
     return {
         isPaused,
+        setIsPaused,
         isBreak,
         currentRound,
         seconds,
-        resumeTimer,
-        pauseTimer,
         isWorkoutOver,
         totalRounds,
         totalSeconds,

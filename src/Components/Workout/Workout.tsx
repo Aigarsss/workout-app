@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
 import classes from './workout.scss';
-import { LogOut, Pause, Play, Volume2, VolumeX } from 'react-feather';
+import { LogOut, Volume2, VolumeX } from 'react-feather';
 import classnames from 'classnames';
 import ProgressBar, { Color } from '@App/Components/Elements/ProgressBar/ProgressBar';
 import Lottie from 'react-lottie';
@@ -40,16 +40,15 @@ const Workout: React.FC = () => {
         isBreak,
         currentRound,
         seconds,
-        resumeTimer,
-        pauseTimer,
         isWorkoutOver,
         totalRounds,
         totalSeconds,
         workoutProgram,
         roundPercentage,
         totalPercentage,
-        soundMuted, 
-        setSoundMuted
+        soundMuted,
+        setSoundMuted,
+        setIsPaused
     } = useWorkout();
 
     // TODO Fixes initial empty state or direct access to workout route. Works a bit sketchy, would be good to redo
@@ -83,7 +82,7 @@ const Workout: React.FC = () => {
         playSound('bell');
     }
 
-    if (seconds === 9 && !isBreak) {
+    if (seconds === 10 && !isBreak) {
         playSound('tick');
     }
 
@@ -102,27 +101,26 @@ const Workout: React.FC = () => {
                     <span className={classes.totalTime}>{formattedTime(totalSeconds)}</span>
                 </div>
             </div>
-            <span className={classes.next}>{isBreak ? 'NEXT' : ''}</span>
-            <div className={classes.type}>{type}</div>
-            <div className={classes.workoutName}>{name}</div>
-            <div className={classnames(classes.currentStatus, { [classes.break]: isBreak })}>
-                {isBreak && currentRound === 0 ? 'GET READY' : isBreak ? 'REST' : 'WORK'}
-            </div>
-            <div className={classes.timeLeft}>
-                <div className={classes.time}>{formattedTime(seconds)}</div>
-                <div className={classes.actionContainer}>
-                    {isPaused ? (
-                        <button onClick={() => resumeTimer()}>
-                            <Play />
-                        </button>
-                    ) : (
-                        <button onClick={() => pauseTimer()}>
-                            <Pause />
-                        </button>
-                    )}
+
+            <div>
+                <div className={classnames(classes.currentStatus, { [classes.break]: isBreak })}>
+                    {isBreak && currentRound === 0 ? 'GET READY' : isBreak ? 'REST' : 'WORK'}
                 </div>
+                <div className={classes.timeLeft}>
+                    <div className={classes.time} onClick={() => setIsPaused(!isPaused)}>
+                        {formattedTime(seconds)}
+                    </div>
+                    {isPaused && <span className={classes.paused}>Paused</span>}
+                </div>
+                <ProgressBar width={roundPercentage} color={isBreak ? Color.Orange : Color.Green} />
+                <div className={classes.pauseInfo}>Press on timer to {isPaused ? 'resume' : 'pause'}</div>
             </div>
-            <ProgressBar width={roundPercentage} color={isBreak ? Color.Orange : Color.Green} />
+
+            <div>
+                <span className={classes.next}>{isBreak ? 'Get ready for:' : ''}</span>
+                <div className={classes.workoutName}>{name}</div>
+                <div className={classes.type}>{type}</div>
+            </div>
         </div>
     );
 
