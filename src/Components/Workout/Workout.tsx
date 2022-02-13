@@ -9,13 +9,8 @@ import Lottie from 'react-lottie';
 import lottieDone from './static/lottie-done.json';
 import roundEnded from './static/roundEndBell.mp3';
 import tick from './static/tenSecondTick.mp3';
-// import moment from 'moment';
 
 const formattedTime = (time: number) => {
-    // const duration = moment.duration(seconds, 'seconds');
-    // const min = duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes();
-    // const sec = duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds();
-
     const min = Math.floor(time / 60);
     const sec = time % 60;
 
