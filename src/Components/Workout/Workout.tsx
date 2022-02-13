@@ -81,6 +81,18 @@ const Workout: React.FC = () => {
         playSound('tick');
     }
 
+    const handleSoundClick = () => {
+        // Play on user interaction, so that can be played later. Mobile fix
+        roundEndedAudio.play();
+        tickingAudio.play();
+        roundEndedAudio.pause();
+        tickingAudio.pause();
+        roundEndedAudio.currentTime = 0;
+        tickingAudio.currentTime = 0;
+
+        setSoundMuted(!soundMuted);
+    };
+
     const workoutBody = (
         <div className={classes.workoutBody}>
             <div className={classes.infoContainer}>
@@ -135,7 +147,7 @@ const Workout: React.FC = () => {
                     <LogOut />
                     Exit workout
                 </Link>
-                <span className={classes.soundState} onClick={() => setSoundMuted(!soundMuted)}>
+                <span className={classes.soundState} onClick={() => handleSoundClick()}>
                     {soundMuted ? <VolumeX /> : <Volume2 />}
                 </span>
             </div>

@@ -42,7 +42,7 @@ export const useWorkout = (): UseWorkout => {
     const [isPaused, setIsPaused] = useState(false);
     const [isWorkoutOver, setIsWorkoutOver] = useState(false);
     const [totalSeconds, setTotalSeconds] = useState(initialTotalTime);
-    const [soundMuted, setSoundMuted] = useState(false);
+    const [soundMuted, setSoundMuted] = useState(true);
 
     const intervalCounter = setInterval(() => {
         // Check if timer needs to be stopped
