@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useWorkout } from './useWorkout';
 import classes from './workout.scss';
@@ -46,6 +46,14 @@ const Workout: React.FC = () => {
         setIsPaused
     } = useWorkout();
 
+    const roundEndedAudio = useMemo(() => {
+        return new Audio(roundEnded);
+    }, []);
+
+    const tickingAudio = useMemo(() => {
+        return new Audio(tick);
+    }, []);
+
     // TODO Fixes initial empty state or direct access to workout route. Works a bit sketchy, would be good to redo
     if (workoutProgram.length === 0) {
         return (
@@ -56,9 +64,21 @@ const Workout: React.FC = () => {
             </div>
         );
     }
+
     const { name, type } = workoutProgram[currentRound];
-    const roundEndedAudio = new Audio(roundEnded);
-    const tickingAudio = new Audio(tick);
+
+    const handleSoundClick = () => {
+        // Play on user interaction, so that can be played later. Mobile fix
+        roundEndedAudio.play();
+        roundEndedAudio.pause();
+        roundEndedAudio.currentTime = 0;
+
+        tickingAudio.play();
+        tickingAudio.pause();
+        tickingAudio.currentTime = 0;
+
+        setSoundMuted(!soundMuted);
+    };
 
     const playSound = (sound: string) => {
         // TODO fix double sound on round end. For now its fine, but im not sure what causes the double render.
@@ -80,18 +100,6 @@ const Workout: React.FC = () => {
     if (seconds === 10 && !isBreak) {
         playSound('tick');
     }
-
-    const handleSoundClick = () => {
-        // Play on user interaction, so that can be played later. Mobile fix
-        roundEndedAudio.play();
-        tickingAudio.play();
-        roundEndedAudio.pause();
-        tickingAudio.pause();
-        roundEndedAudio.currentTime = 0;
-        tickingAudio.currentTime = 0;
-
-        setSoundMuted(!soundMuted);
-    };
 
     const workoutBody = (
         <div className={classes.workoutBody}>

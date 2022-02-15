@@ -1,7 +1,7 @@
 import { FormRoundInfo } from '@App/Context/useApp';
 import { useWorkoutContext } from '@App/Context/workoutContext';
 import { ApiData } from '@App/MockApi/mockData';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type UseWorkout = {
     isPaused: boolean;

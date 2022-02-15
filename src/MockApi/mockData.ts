@@ -158,17 +158,17 @@ export const mockData: Array<ApiData> = [
      */
     {
         type: 'legs',
-        name: 'Squat',
+        name: 'Squats',
         demo: 'www.youtube.com/embed'
     },
     {
         type: 'legs',
-        name: 'Pulse Squat',
+        name: 'Pulse Squats',
         demo: 'www.youtube.com/embed'
     },
     {
         type: 'legs',
-        name: 'Jump Squat',
+        name: 'Jump Squats',
         demo: 'www.youtube.com/embed'
     },
     {
