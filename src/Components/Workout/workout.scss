@@ -10,10 +10,6 @@
         width: 100%;
         height: 50px;
 
-        @include screenSuperSmall {
-            height: 30px;
-        }
-
         .soundState {
             padding-right: 30px;
             display: flex;
