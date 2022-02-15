@@ -140,11 +140,13 @@ const Workout: React.FC = () => {
     );
 
     const endedWorkoutBody = (
-        <div className={classes.workoutEnded}>
-            <div className={classes.endedTitle}>Nicely done!</div>
-            <Link className={classes.endedLink} to="/">
-                <Lottie options={defaultLottieOptions} width="100%" />
-            </Link>
+        <div className={classes.workoutBody}>
+            <div className={classes.workoutEnded}>
+                <div className={classes.endedTitle}>Nicely done!</div>
+                <Link className={classes.endedLink} to="/">
+                    <Lottie options={defaultLottieOptions} width="100%" />
+                </Link>
+            </div>
         </div>
     );
 

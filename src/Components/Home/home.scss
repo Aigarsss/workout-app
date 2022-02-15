@@ -23,6 +23,11 @@
             font-weight: 600;
             text-transform: uppercase;
             line-height: 43px;
+
+            @include screenSuperSmall {
+                font-size: 26px;
+                line-height: 30px;
+            }
         }
     }
 
