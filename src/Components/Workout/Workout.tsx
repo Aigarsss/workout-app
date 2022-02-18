@@ -8,6 +8,7 @@ import ProgressBar, { Color } from '@App/Components/Elements/ProgressBar/Progres
 import Lottie from 'react-lottie';
 import lottieDone from './static/lottie-done.json';
 import roundEnded from './static/roundEndBell.mp3';
+import goGoGo from './static/goGoGo.mp3';
 import tick from './static/tenSecondTick.mp3';
 
 const formattedTime = (time: number) => {
@@ -54,6 +55,10 @@ const Workout: React.FC = () => {
         return new Audio(tick);
     }, []);
 
+    const goGoAudio = useMemo(() => {
+        return new Audio(goGoGo);
+    }, []);
+
     // TODO Fixes initial empty state or direct access to workout route. Works a bit sketchy, would be good to redo
     if (workoutProgram.length === 0) {
         return (
@@ -77,6 +82,10 @@ const Workout: React.FC = () => {
         tickingAudio.pause();
         tickingAudio.currentTime = 0;
 
+        goGoAudio.play();
+        goGoAudio.pause();
+        goGoAudio.currentTime = 0;
+
         setSoundMuted(!soundMuted);
     };
 
@@ -90,16 +99,30 @@ const Workout: React.FC = () => {
             if (sound === 'tick') {
                 tickingAudio.play();
             }
+
+            if (sound === 'goGo') {
+                goGoAudio.play();
+            }
         }
     };
 
-    if (seconds === 0) {
+    if (seconds === 0 && !isBreak) {
         playSound('bell');
+    }
+
+    if (seconds === 0 && isBreak) {
+        playSound('goGo');
     }
 
     if (seconds === 10 && !isBreak) {
         playSound('tick');
     }
+
+    const pauseInfoDiv = document.getElementById('pauseInfo');
+    // Fade out pausing info.
+    setTimeout(() => {
+        pauseInfoDiv && (pauseInfoDiv.style.opacity = '0');
+    }, seconds * 1000);
 
     const workoutBody = (
         <div className={classes.workoutBody}>
@@ -128,7 +151,7 @@ const Workout: React.FC = () => {
                     {isPaused && <span className={classes.paused}>Paused</span>}
                 </div>
                 <ProgressBar width={roundPercentage} color={isBreak ? Color.Orange : Color.Green} />
-                <div className={classes.pauseInfo}>Press on timer to {isPaused ? 'resume' : 'pause'}</div>
+                <div id="pauseInfo" className={classes.pauseInfo}>Press on timer to {isPaused ? 'resume' : 'pause'}</div>
             </div>
 
             <div>
