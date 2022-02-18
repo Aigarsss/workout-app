@@ -124,7 +124,7 @@ export const useHome = (): UseHome => {
     const { formExerciseInfo, formRoundInfo, setWorkoutProgram } = useWorkoutContext();
 
     const handleSumbit = () => {
-        setIsLoading(true);
+        // setIsLoading(true);
         // FAKE API IMPLEMENTATION. TODO REPLACE
         // Initiate final exercise list, that we will put in context for /workout page
         const exerciseList = [];
@@ -139,7 +139,30 @@ export const useHome = (): UseHome => {
             // Filter all exercises of specific type and then select one randomly and add to the final list
             const list = mockData.filter(({ type }) => type === formExerciseInfo[subCounter]);
 
-            exerciseList.push(getRandomArrayObject(list));
+            /**
+             * Check for duplicates. Only use duplicates if all exercises used up.
+             * Works only for the first itteration, but should cover most of the cases
+             */
+
+            // Filter out only current type from exercise list
+            const alreadyAdded: Array<ApiData> = exerciseList.filter(
+                ({ type }) => type === formExerciseInfo[subCounter]
+            );
+
+            // Create list of the unique exercises
+            const nonDuplicateList: Array<ApiData> = list.filter((cv: ApiData) => {
+                return !alreadyAdded.find((e: ApiData) => {
+                    return e.name == cv.name;
+                });
+            });
+
+            // This will work while the duplicate list has entries, once it runs out, it will go to the old behavior
+            if (nonDuplicateList.length > 0) {
+                exerciseList.push(getRandomArrayObject(nonDuplicateList));
+            } else {
+                exerciseList.push(getRandomArrayObject(list));
+            }
+
             subCounter++;
             i++;
         }
@@ -161,7 +184,7 @@ export const useHome = (): UseHome => {
             // Set new storage
             localStorage.setItem('storageData', JSON.stringify(formData));
             navigate('/workout');
-        }, 1200);
+        }, 600);
     };
 
     return {

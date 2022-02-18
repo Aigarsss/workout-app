@@ -151,7 +151,9 @@ const Workout: React.FC = () => {
                     {isPaused && <span className={classes.paused}>Paused</span>}
                 </div>
                 <ProgressBar width={roundPercentage} color={isBreak ? Color.Orange : Color.Green} />
-                <div id="pauseInfo" className={classes.pauseInfo}>Press on timer to {isPaused ? 'resume' : 'pause'}</div>
+                <div id="pauseInfo" className={classes.pauseInfo}>
+                    Press on timer to {isPaused ? 'resume' : 'pause'}
+                </div>
             </div>
 
             <div>
