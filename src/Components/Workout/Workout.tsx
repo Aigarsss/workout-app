@@ -36,9 +36,11 @@ const Workout: React.FC = () => {
         isBreak,
         currentRound,
         seconds,
+        setSeconds,
         isWorkoutOver,
         totalRounds,
         totalSeconds,
+        setTotalSeconds,
         workoutProgram,
         roundPercentage,
         totalPercentage,
@@ -157,9 +159,18 @@ const Workout: React.FC = () => {
             </div>
 
             <div>
-                <span className={classes.next}>{isBreak ? 'Get ready for:' : ''}</span>
+                <div className={classes.next}>{isBreak ? 'Get ready for:' : ''}</div>
                 <div className={classes.workoutName}>{name}</div>
                 <div className={classes.type}>{type}</div>
+                <div
+                    className={classes.skip}
+                    onClick={() => {
+                        setSeconds(0);
+                        setTotalSeconds(totalSeconds - seconds);
+                    }}
+                >
+                    Skip
+                </div>
             </div>
         </div>
     );

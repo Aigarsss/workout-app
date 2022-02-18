@@ -9,9 +9,11 @@ type UseWorkout = {
     isBreak: boolean;
     currentRound: number;
     seconds: number;
+    setSeconds: (seconds: number) => void;
     isWorkoutOver: boolean;
     totalRounds: number;
     totalSeconds: number;
+    setTotalSeconds: (totalSeconds: number) => void;
     workoutProgram: Array<ApiData>;
     roundPercentage: number;
     totalPercentage: number;
@@ -130,9 +132,11 @@ export const useWorkout = (): UseWorkout => {
         isBreak,
         currentRound,
         seconds,
+        setSeconds,
         isWorkoutOver,
         totalRounds,
         totalSeconds,
+        setTotalSeconds,
         workoutProgram,
         roundPercentage,
         totalPercentage: totalPercentage > 100 ? 100 : totalPercentage,

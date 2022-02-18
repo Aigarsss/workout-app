@@ -132,6 +132,15 @@
             }
         }
 
+        .skip {
+            width: 100px;
+            margin-left: auto;
+            margin-top: 6px;
+            cursor: pointer;
+            text-align: right;
+            padding-right: 30px;
+        }
+
         .currentStatus {
             width: 100%;
             display: flex;
