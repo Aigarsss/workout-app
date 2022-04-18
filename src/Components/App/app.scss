@@ -3,6 +3,10 @@
    License: none (public domain)
 */
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
     height: 100%;
 }
